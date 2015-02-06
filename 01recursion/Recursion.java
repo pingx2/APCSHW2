@@ -47,20 +47,21 @@ public class Recursion implements hw1{
     }
 
     /*
-    public static void main(String[]args){
-	
-	Recursion a = new Recursion();
-	
-	System.out.println(a.fact(3));
-	System.out.println(a.fact(5));
-	System.out.println(a.fib(3));
-	System.out.println(a.fib(5));
-	System.out.println(a.fib(9));
-	System.out.println(a.sqrt(49));
-	System.out.println(a.sqrt(100));
-	System.out.println(a.sqrt(143));
-    }
+      public static void main(String[]args){
+      
+      Recursion a = new Recursion();
+      
+      System.out.println(a.fact(3));
+      System.out.println(a.fact(5));
+      System.out.println(a.fib(3));
+      System.out.println(a.fib(5));
+      System.out.println(a.fib(9));
+      System.out.println(a.sqrt(49));
+      System.out.println(a.sqrt(100));
+      System.out.println(a.sqrt(143));
+      }
     */
+    
 }
 
 	
