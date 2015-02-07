@@ -28,7 +28,7 @@ public class Recursion implements hw1{
 	    return fib(n-1)+fib(n-2);
 	}
     }
-
+   
     public double sqrt(double n){
 	if(n<0){
 	    throw new IllegalArgumentException();
@@ -38,15 +38,17 @@ public class Recursion implements hw1{
     }
 
     public double sqrthelper(double n, double guess){
-	if(guess*guess == n){
-	    return guess;
+	if(Math.abs(((n/guess+guess)/2)-guess)<.001){
+	    return (n/guess+guess)/2;
 	}else{
 	    return sqrthelper(n, (n/guess+guess)/2);
 	}
 
     }
-
+    
     /*
+ 
+
       public static void main(String[]args){
       
       Recursion a = new Recursion();
@@ -60,8 +62,8 @@ public class Recursion implements hw1{
       System.out.println(a.sqrt(100));
       System.out.println(a.sqrt(143));
       }
-    */
     
+    */
 }
 
 	
