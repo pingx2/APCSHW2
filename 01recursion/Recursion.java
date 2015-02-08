@@ -1,14 +1,14 @@
-public class Recursion implements hw1{
+public class Recursion{
 
     public String name(){
-	return "Zeng, Ping Ping";
+	return "Zeng,PingPing";
     }
 
     public int fact(int n){
 	if(n<0){
 	    throw new IllegalArgumentException();
 	}
-	if(n==1){
+	if(n==0){
 	    return 1;
 	}else{
 	    return n*fact(n-1);
@@ -33,37 +33,48 @@ public class Recursion implements hw1{
 	if(n<0){
 	    throw new IllegalArgumentException();
 	}
-	double guess = 1.0;
-	return sqrthelper(n, guess);
+	return sqrthelper(n, 1.0);
     }
 
     public double sqrthelper(double n, double guess){
-	if(Math.abs(((n/guess+guess)/2)-guess)<.001){
-	    return (n/guess+guess)/2;
+	if(n==0){
+	    return 0;
+	}
+	if(Math.abs(guess*guess - n)<.0000000001){
+	    return guess;
 	}else{
 	    return sqrthelper(n, (n/guess+guess)/2);
 	}
 
     }
     
-    /*
- 
-
-      public static void main(String[]args){
-      
-      Recursion a = new Recursion();
-      
-      System.out.println(a.fact(3));
-      System.out.println(a.fact(5));
-      System.out.println(a.fib(3));
-      System.out.println(a.fib(5));
-      System.out.println(a.fib(9));
-      System.out.println(a.sqrt(49));
-      System.out.println(a.sqrt(100));
-      System.out.println(a.sqrt(143));
-      }
+    
+    
+    /*  
+    public static void main(String[]args){
+	
+	Recursion a = new Recursion();
+	
+	System.out.println(a.name());
+      	System.out.println(a.fact(0));
+	System.out.println(a.fact(1));
+	System.out.println(a.fact(5));
+	//System.out.println(a.fact(-1));
+	System.out.println(a.fib(0));
+	System.out.println(a.fib(2));
+        System.out.println(a.fib(5));
+	System.out.println(a.fib(10));
+	//System.out.println(a.fib(-1));
+	System.out.println(a.sqrt(169.0));
+	System.out.println(a.sqrt(1.0));
+	System.out.println(a.sqrt(0.000000001));
+	System.out.println(a.sqrt(0.0));
+	//System.out.println(a.sqrt(-100.00));
+    
+    }
     
     */
+    
 }
 
 	
