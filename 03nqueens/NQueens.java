@@ -37,7 +37,7 @@ public class NQueens{
 	    }
 	    ans+="\n";
 	}
-	return hide + cleaer + go(0,0) + ans + "\n" + show;
+	return hide + clear + go(0,0) + ans + "\n" + show;
     }
 
     public NQueens(int size){
@@ -54,5 +54,47 @@ public class NQueens{
     }
 
     public boolean solve(int x){
-
+	return solve(x,0,1);
     }
+
+    public boolean check(int x, int y){
+	for(int r = 0; r < board.length; r++){
+	    if(r!=y && board[r][x] == 'Q'){
+		return false;
+	    }
+	}
+	for(int c = 0; c < board.length; c++){
+	    if(c!=x && board[y][c] == 'Q'){
+		return false;
+	    }
+	}
+        //checkdiagonal
+    }	
+
+
+    public boolean solve(int x, int y, int count){
+	//System.out.println(this);
+	//wait(10);
+	if(x < 0 || x >= board.length || y < 0 || y >= board.length){
+	    return false;
+	}
+	if(count > board.length){
+	    return true;
+	}
+	if(check(x,y) && board[x][y] == '_'){
+	    board[x][y] = 'Q';
+	    if(solve(x+1,y+2,count+1) || 
+	       solve(x-1,y+2,count+1) || 
+	       solve(x+1,y-2,count+1) ||
+	       solve(x-1,y-2,count+1) ||
+	       solve(x+2,y+1,count+1) ||
+	       solve(x-2,y+1,count+1) ||
+	       solve(x+2,y-1,count+1) ||
+	       solve(x-2,y-1,count+1)){
+		return true;
+	    }
+	    board[x][y]='_';
+	}
+	return false;		
+    }
+}
