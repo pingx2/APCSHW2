@@ -8,8 +8,6 @@ public class KnightsTour{
     final static String clear =  "\033[2J";
     final static String hide =  "\033[?25l";
     final static String show =  "\033[?25h";
-
-    boolean debug;
     
     //instance variable
     private int[][]board;
@@ -28,7 +26,7 @@ public class KnightsTour{
     }
     
     public String name(){
-	return "zeng,pingping";
+	return "zeng.pingping";
     }
     
     public String toString(){
@@ -47,7 +45,7 @@ public class KnightsTour{
 	    }
 	    ans+="\n";	
 	}
-	return hide + go(0,0) + ans + "\n" + show;
+	return hide + clear + go(0,0) + ans + "\n" + show;
     }
     
     public KnightsTour(int size){
@@ -66,25 +64,28 @@ public class KnightsTour{
 
 		
     public boolean solve(int x,int y,int currentMoveNumber){
-	System.out.println(this);
-	wait(50);
-	if(currentMoveNumber == board.length * board.length){
-	    return true;
+	//System.out.println(this);
+	//wait(1);
+	if(x < 0 || x >= board.length || y < 0 || y >= board.length){
+	    return false;
 	}
-	if(x >= 0 && x < board.length && y >= 0 && y < board.length){
-	    if(board[x][y]==0){
+	if(board[x][y]==0){
+	    if(currentMoveNumber == board.length*board.length){
 		board[x][y] = currentMoveNumber;
-		if(solve(x+1,y+2,currentMoveNumber+1) || 
-		   solve(x-1,y+2,currentMoveNumber+1) || 
-		   solve(x+1,y-2,currentMoveNumber+1) ||
-		   solve(x-1,y-2,currentMoveNumber+1) ||
-		   solve(x+2,y+1,currentMoveNumber+1) ||
-		   solve(x-2,y+1,currentMoveNumber+1) ||
-		   solve(x+2,y-1,currentMoveNumber+1) ||
-		   solve(x-2,y-1,currentMoveNumber+1)){
-		    return true;
-		}
+		return true;
 	    }
+	    board[x][y] = currentMoveNumber;
+	    if(solve(x+1,y+2,currentMoveNumber+1) || 
+	       solve(x-1,y+2,currentMoveNumber+1) || 
+	       solve(x+1,y-2,currentMoveNumber+1) ||
+	       solve(x-1,y-2,currentMoveNumber+1) ||
+	       solve(x+2,y+1,currentMoveNumber+1) ||
+	       solve(x-2,y+1,currentMoveNumber+1) ||
+	       solve(x+2,y-1,currentMoveNumber+1) ||
+	       solve(x-2,y-1,currentMoveNumber+1)){
+		return true;
+	    }
+	    board[x][y]=0;
 	}
 	return false;
     }
