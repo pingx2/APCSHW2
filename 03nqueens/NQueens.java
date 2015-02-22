@@ -92,28 +92,23 @@ public class NQueens{
     	
 
 
-    public boolean solve(int x, int count){
+    public boolean solve(int y, int count){
 	//System.out.println(this);
 	//wait(10);
-	if(x < 0 || x >= board.length){
+	if(y < 0 || y >= board.length){
 	  return true;
 	}
 	if(count > board.length){
 	    return true;
 	}
-	for(int y = 0; y < board.length; y++){
+	for(int x = 0; x < board.length; x++){
 	    if(check(x,y)){
 		board[y][x] = 'Q';
-		return solve(x+1, count+1);
+		return solve(y+1, count+1);
 	    }
 	}
-	if(solve(x+1, count)){
-	    return true;
-	}
-    
-	// board[y][x] = '-';
+	return(solve(y+1, count));
 	
-	return false;
     }
     /*
       if(check(x,y) && board[x][y] == '_'){
