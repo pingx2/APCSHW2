@@ -96,19 +96,21 @@ public class NQueens{
 	//System.out.println(this);
 	//wait(10);
 	if(y < 0 || y >= board.length){
-	  return true;
+	    return true;
 	}
-	if(count > board.length){
+	if(count == board.length+1){
 	    return true;
 	}
 	for(int x = 0; x < board.length; x++){
-	    if(check(x,y)){
+	    if(check(x,y) && y < board.length){
 		board[y][x] = 'Q';
-		return solve(y+1, count+1);
+		if(solve(y+1, count+1)){
+		    return true;
+		}
+		board[y][x] = '-';
 	    }
 	}
 	return(solve(y+1, count));
-	
     }
     /*
       if(check(x,y) && board[x][y] == '_'){
