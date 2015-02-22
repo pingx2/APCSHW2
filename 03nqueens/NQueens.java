@@ -44,7 +44,7 @@ public class NQueens{
 	board = new char[size][size];
 	for(int i = 0; i < board.length; i++){
 	    for(int j = 0; j < board[i].length; j++){
-		board[i][j] = '_';
+		board[i][j] = '-';
 	    }
 	}
     }
@@ -54,11 +54,29 @@ public class NQueens{
     }
 
     public boolean solve(int x){
-	return solve(x,0,1);
+	return solve(x,1);
     }
 
     public boolean check(int x, int y){
-	for(int r = 0; r < board.length; r++){
+	for(int i = 0; i < board.length; i++){
+	    for(int j = 0; j < board.length; j++){
+		if(board[i][j]=='Q'){
+		    if(i == y){
+			return false;
+		    }
+		    if(j == x){
+			return false;
+		    }
+		    if(Math.abs(i-y) == Math.abs(j-x)){
+			return false;
+		    }
+		}
+	    }
+	}
+	return true;
+    }
+	/*
+       	for(int r = 0; r < board.length; r++){
 	    if(r!=y && board[r][x] == 'Q'){
 		return false;
 	    }
@@ -69,19 +87,36 @@ public class NQueens{
 	    }
 	}
         //checkdiagonal
-    }	
+	}
+	*/
+    	
 
 
-    public boolean solve(int x, int y, int count){
+    public boolean solve(int x, int count){
 	//System.out.println(this);
 	//wait(10);
-	if(x < 0 || x >= board.length || y < 0 || y >= board.length){
-	    return false;
+	if(x < 0 || x >= board.length){
+	  return true;
 	}
 	if(count > board.length){
 	    return true;
 	}
-	if(check(x,y) && board[x][y] == '_'){
+	for(int y = 0; y < board.length; y++){
+	    if(check(x,y)){
+		board[y][x] = 'Q';
+		return solve(x+1, count+1);
+	    }
+	}
+	if(solve(x+1, count)){
+	    return true;
+	}
+    
+	// board[y][x] = '-';
+	
+	return false;
+    }
+    /*
+      if(check(x,y) && board[x][y] == '_'){
 	    board[x][y] = 'Q';
 	    if(solve(x+1,y+2,count+1) || 
 	       solve(x-1,y+2,count+1) || 
@@ -97,4 +132,17 @@ public class NQueens{
 	}
 	return false;		
     }
+	*/
+
+    public static void main(String[]args){
+	NQueens a = new NQueens(Integer.parseInt(args[0]));
+
+	if(a.solve()){
+	    System.out.println(a);
+	}else{
+	    System.out.println("No Solution");
+	}
+    }
+	
+
 }
