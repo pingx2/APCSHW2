@@ -3,16 +3,12 @@ import java.io.*;
 
 
 public class KnightsTour{
-    //constants for the class
-    //terminal specific character to clear screen , or hide/show cursor
     final static String clear =  "\033[2J";
     final static String hide =  "\033[?25l";
     final static String show =  "\033[?25h";
     
-    //instance variable
     private int[][]board;
     
-    //terminal specific character to move the cursor
     private String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
@@ -31,7 +27,6 @@ public class KnightsTour{
     
     public String toString(){
 	String ans = "\n";
-	//build your knights tour here...
 	for(int i = 0; i < board.length; i++){
 	    for(int j = 0; j < board[i].length; j++){
 		int value = board[i][j];
@@ -59,9 +54,12 @@ public class KnightsTour{
     
     
     public boolean solve(){
-	return solve(0,0,1);
+	return solve(0,0);
     }
 
+    public boolean solve(int x, int y){
+	return solve(x,y,1);
+    }
 		
     public boolean solve(int x,int y,int currentMoveNumber){
 	//System.out.println(this);
@@ -92,8 +90,6 @@ public class KnightsTour{
     
     public static void main(String[]args){
 	KnightsTour a = new KnightsTour(Integer.parseInt(args[0]));
-	
-	//System.out.println(a);
 	
 	if(a.solve()){
 	    System.out.println(a);
