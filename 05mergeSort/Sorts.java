@@ -1,5 +1,9 @@
 public class Sorts{
 
+    public void mergesort(int[] a, int[]b, int[]c){
+
+    }
+
     public void merge(int[] a, int[] b, int acount, int bcount){
 	int[] merged = new int[a.length+b.length]; 
 	for(int i = 0; i < merged.length; i++){
@@ -24,4 +28,10 @@ public class Sorts{
 	    }
 	}
     }
+
+    public void sort(int[] a){
+
+    }
+
+
 }
