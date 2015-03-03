@@ -37,12 +37,11 @@ public class CowTravelling{
 	if(x < 0 || x >= column || y < 0 || y >= row){
 	    return 0;
 	}
-	if(time == ctime){
-	    if(x == c2 && y == r2){
-		return 1;
-	    }else{
-		return 0;
-	    }
+	if(time == ctime && ( x != c2 || y != r2)){
+	    return 0;
+	}
+	if(time == ctime && x == c2 && y == r2){
+	    return 1;
 	}
 	if(pasture[y][x] == '*'){
 	    return 0;
@@ -51,20 +50,10 @@ public class CowTravelling{
 	    travel(x,y+1,ctime+1) + travel(x,y-1,ctime+1);
     }
 
-    public String toString(){
-	String ans = "";
-	for(int r = 0; r < row; r++){
-	    for(int c = 0; c < column; c++){
-		ans += pasture[r][c];
-	    }
-	    ans += "\n";
-	}
-	return ans;
-    }
 
     public static void main(String[]args){
+
 	CowTravelling a = new CowTravelling("cowtravelling.txt");
-	//System.out.println(a);
 	System.out.println(a.travel());
 
 
