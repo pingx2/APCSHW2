@@ -2,50 +2,61 @@ import java.util.*;
 
 public class QuickSelect{
 
-    static Random r = new Random();
+    private static Random r = new Random();
+  
+    public static int quickSelect(int[] ary, int n){
+	if(n <= 0 || n > ary.length){
+	    throw new IndexOutOfBoundsException();
+	}
+	return partition(ary,0,ary.length-1,n); 
+    }
 
-    public static void partition(int[] ary, int si, int ei){
-	//make a new empty array of the same size as ary
+    public static int partition(int[] ary, int si, int ei, int n){
 	int[] d = new int[ary.length];
-	//copy all elements not in range si to ei over to empty array
 	for(int i = 0; i < si; i++){
 	    d[i] = ary[i];
 	}
 	for(int i = ei; i < ary.length; i++){
 	    d[i] = ary[i];
 	}
-	//select a random pivot element
-	int num = si + r.nextInt(ei-si+1);
-	System.out.println(ary[num]);
-	//add the rest of the elements into the new array
+	int pi = si + r.nextInt(ei-si+1);
 	int s = si;
 	int e = ei;
-	for(int i = si; i <= ei; i++){
-	    //if it's less than the pivot value, copy to pos si and increment si
-	    if(ary[i] < ary[num]){
-		d[s] = ary[i];
-		s++;
+	for(int i = s; i <= e; i++){
+	    if(ary[i] < ary[pi]){
+		d[si] = ary[i];
+		si++;
 	    }
-	    //if it's greater than the pivot value, copy to pos ei and decrement ei
-	    if(ary[i] > ary[num]){
-		d[e] = ary[i];
-		e--;
+	    if(ary[i] > ary[pi]){
+		d[ei] = ary[i];
+		ei--;
 	    }
 	}
-	//copy the pivot value to the new array
-	d[s] = ary[num];
-   
-	for(int i = 0; i < d.length; i++){
-	    System.out.print(d[i]+" ");
+	d[si] = ary[pi];
 
+	//System.out.println(Arrays.toString(d));
+
+	
+	if(si == n - 1){
+	    return d[si];
 	}
+
+	if(si < n - 1){
+	    return partition(d,si+1,e,n);
+	}else{
+	    //(si > n - 1){
+	    return partition(d,s,si-1,n);
+	}
+	
     }
     
-    
+  
+
     public static void main(String[]args){
 	
 	int[]ary = {9,5,1,8,3,4,7,2,6,0};
 	
+	/*
 	for(int i = 0; i < ary.length; i++){
 	    System.out.print(ary[i]+" ");
 	}
@@ -54,8 +65,9 @@ public class QuickSelect{
 
 	partition(ary,0,9);
 
-	
-
+	*/
+	System.out.println(Arrays.toString(ary));
+	System.out.println(quickSelect(ary,5));
    
 	
     }
