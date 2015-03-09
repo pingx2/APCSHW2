@@ -58,9 +58,12 @@ public class QuickSort{
     
     public static void quickSort(int[] a){
 	int pi = findpartition(a);
-    	int s = 
-	a[pi] = 
-	a[a.length-1] = pi;
+    	int s = a[pi];
+	a[pi] = a[a.length-1];
+	a[a.length-1] = s;
+	if(quickSelect(a,
+
+
 
 
 
