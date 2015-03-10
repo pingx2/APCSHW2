@@ -21,8 +21,8 @@ public class Sorts{
 	int pi = si + r.nextInt(ei-si+1);
 	int pivot = ary[pi];
 
-	System.out.println(pi);
-	System.out.println(pivot);
+	//System.out.println(pi);
+	//System.out.println(pivot);
 
 	ary[pi] = ary[ei];
 	ary[ei] = pivot;
@@ -31,7 +31,7 @@ public class Sorts{
 	int e = ei-1;
 	int temp;
 
-	System.out.println(Arrays.toString(ary));
+	//System.out.println(Arrays.toString(ary));
 
 	while(s <= e){
 	    if(ary[s] < pivot){
@@ -49,10 +49,10 @@ public class Sorts{
 	    }
 	}
 
-	System.out.println(Arrays.toString(ary));	
+	//System.out.println(Arrays.toString(ary));	
 
-	System.out.println(s);
-	System.out.println(e);
+	//System.out.println(s);
+	//System.out.println(e);
 	//System.out.println(pi);
        	
       
