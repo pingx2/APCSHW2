@@ -45,7 +45,9 @@ public class Sorts{
 		temp = ary[s];
 		ary[s] = ary[s+1];
 		ary[s+1] = temp;
-		s++;
+		if(ary[s] == pivot){
+		    s++;
+		}
 	    }
 	}
 
