@@ -50,13 +50,6 @@ public class Sorts{
 		}
 	    }
 	}
-
-	//System.out.println(Arrays.toString(ary));	
-
-	//System.out.println(s);
-	//System.out.println(e);
-	//System.out.println(pi);
-       	
       
 	ary[ei] = ary[s];
         ary[s] = pivot;   
