@@ -8,10 +8,12 @@ public class MyLinkedList{
 	size = 0;
     }
 
+    /*
     public MyLinkedList(LNode n){
 	start = n;
 	size = 0;
     }
+    */
 
     public void set(int index, int n){
 	if(index >= 0 && index < size){
@@ -31,10 +33,11 @@ public class MyLinkedList{
 	    }
 	    return current.getData();
 	}
+	//fix
 	return -1;
     }
 
-    public void add(int n){
+    public boolean add(int n){
 	if(size == 0){
 	    start = new LNode(n);
 	}else{
@@ -46,6 +49,7 @@ public class MyLinkedList{
 	    current.setNext(next);
 	}
 	size++;
+	return true;
     }
 
     public void add(int index, int n){
@@ -60,6 +64,7 @@ public class MyLinkedList{
 		LNode next = new LNode(n,current.getNext());
 		current.setNext(next);
 		size++;
+		return true;
 	    }
 	}
     }
@@ -91,7 +96,8 @@ public class MyLinkedList{
 	return s;
     }
     */
-    public void remove(int i){
+
+    public int remove(int i){
 
     }
 
