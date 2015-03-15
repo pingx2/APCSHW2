@@ -11,25 +11,25 @@ public class MyLinkedList{
     }
 
     public void set(int index, int n){
-	if(index >= 0 && index < size()){
-	    LNode current = start;
-	    for(int i = 0; i < index; i++){
-		current = current.getNext();
-	    }
-	    current.setData(n);
+	if(index < 0 || index >= size()){
+	    throw new IndexOutOfBoundsException();
 	}
+	LNode current = start;
+	for(int i = 0; i < index; i++){
+	    current = current.getNext();
+	}
+	current.setData(n);
     }
 
     public int get(int index){
-	if(index >= 0 && index < size()){
-	    LNode current = start;
-	    for(int i = 0; i < index; i++){
-		current = current.getNext();
-	    }
-	    return current.getData();
+	if(index < 0 || index >= size()){
+	    throw new IndexOutOfBoundsException();
 	}
-	//fix
-	return 0;
+	LNode current = start;
+	for(int i = 0; i < index; i++){
+	    current = current.getNext();
+	}
+	return current.getData();
     }
 
     public boolean add(int n){
@@ -54,34 +54,35 @@ public class MyLinkedList{
     }
 
     public void add(int index, int n){
-	if(index >= 0 && index <= size()){
-	    LNode current = start;
-	    for(int i = 0; i < index - 1; i++){
-		current = current.getNext();
-	    }
-	    LNode next = new LNode(n,current.getNext());
-	    current.setNext(next);
-	    size++;
+	if(index < 0 || index > size()){
+	    throw new IndexOutOfBoundsException();
 	}
+	LNode current = start;
+	for(int i = 0; i < index - 1; i++){
+	    current = current.getNext();
+	}
+	LNode next = new LNode(n,current.getNext());
+	current.setNext(next);
+	size++;
     }
     
     public boolean remove(int index){
-	if(index >= 0 && index <= size()){
-	    LNode current = start;
-	    for(int i = 0; i < index; i++){
-		current = current.getNext();
-	    }
-	    for(int i = index; i < size() - 1; i++){
-		LNode next = current.getNext();
-		current.setData(next.getData()); 
-		current = current.getNext(); 
-	    }
-	    size--;
-	    return true;
+	if(index < 0 || index >= size()){
+	    throw new IndexOutOfBoundsException();
 	}
-	return false;
+	LNode current = start;
+	for(int i = 0; i < index; i++){
+	    current = current.getNext();
+	}
+	for(int i = index; i < size() - 1; i++){
+	    LNode next = current.getNext();
+	    current.setData(next.getData()); 
+	    current = current.getNext(); 
+	}
+	size--;
+	return true;
     }
-	
+    
     public int indexOf(int n){
 	LNode current = start;
 	for(int i = 0; i < size(); i++){
@@ -141,16 +142,16 @@ public class MyLinkedList{
 	System.out.println(a);
 	a.remove(1);
 	a.remove(1);
-	a.remove(5);
+	//a.remove(5);
 	a.remove(0);
 	a.remove(0);
 	System.out.println(a);
 	a.add(1);
 	a.add(3);
 	a.add(2,4);
-	a.add(5,2);
+	//a.add(5,2);
 	a.set(1,3);
-	System.out.println(a.indexOf(10));
+	//System.out.println(a.indexOf(10));
 	System.out.println(a);
 
 
