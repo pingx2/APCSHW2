@@ -4,8 +4,8 @@ public class Sorts{
 
     private static Random r = new Random();
 
-    public static void name(){
-	System.out.println("zeng.pingping");
+    public static String name(){
+	return "zeng.pingping";
     }
 
     public static void quickSort(int[] ary){
@@ -67,7 +67,7 @@ public class Sorts{
     
     public static void main(String[]args){
 	
-	name();
+	System.out.println(name());
 	
 	int[] ary = new int[15];
 	for (int i = 0; i < ary.length; i++) {
