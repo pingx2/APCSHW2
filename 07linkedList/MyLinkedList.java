@@ -4,6 +4,10 @@ public class MyLinkedList{
     private LNode end;
     private int size;
 
+   public String name(){
+	return "zeng.pingping";
+    }
+
     public MyLinkedList(){
 	start = new LNode(0);
 	end = new LNode(0);
@@ -86,7 +90,7 @@ public class MyLinkedList{
     public int indexOf(int n){
 	LNode current = start;
 	for(int i = 0; i < size(); i++){
-	    if(current.getData() == n){
+	    if(current.getData().equals(n)){
 		return i;
 	    }else{
 		current = current.getNext();
@@ -129,6 +133,7 @@ public class MyLinkedList{
 	
 	MyLinkedList a = new MyLinkedList();
 
+	System.out.println(a.name());
 	a.add(1);
 	a.add(2);
 	a.add(3);
