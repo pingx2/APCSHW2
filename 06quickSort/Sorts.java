@@ -4,6 +4,10 @@ public class Sorts{
 
     private static Random r = new Random();
 
+    public static void name(){
+	System.out.println("zeng.pingping");
+    }
+
     public static void quickSort(int[] ary){
 	quickSort(ary,0,ary.length-1);
     }
@@ -62,6 +66,8 @@ public class Sorts{
     
     
     public static void main(String[]args){
+	
+	name();
 	
 	int[] ary = new int[15];
 	for (int i = 0; i < ary.length; i++) {
