@@ -4,6 +4,9 @@ import java.io.*;
 
 public class Sorts{
 
+    public static String name(){
+	return "zeng.pingping";
+    }
 
     public static int[] merge(int[]array){
 	if(array.length == 0 || array.length == 1){
@@ -61,6 +64,8 @@ public class Sorts{
     }   
 
     public static void main(String[]args){
+
+	System.out.println(name());
 	
 	Random rand = new Random();
 
