@@ -51,6 +51,10 @@ public class CowTravelling{
     }
 
 
+    public String name(){
+	return "zeng.pingping";
+    }
+    
     public static void main(String[]args){
 
 	CowTravelling a = new CowTravelling("cowtravelling.txt");

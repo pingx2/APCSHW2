@@ -71,8 +71,10 @@ public class MakeLake{
 	return max - D_s;
     }
 
-
-
+    public String name(){
+	return "zeng.pingping";
+    }
+    
     public static void main(String[]args){
 	MakeLake a = new MakeLake("makelake.txt");
 	System.out.println(a.stomp());
