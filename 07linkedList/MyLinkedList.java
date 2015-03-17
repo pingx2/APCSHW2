@@ -1,4 +1,6 @@
-public class MyLinkedList<T>{
+import java.util.*;
+
+public class MyLinkedList<T> implements MyLLIterator<T>{
 
     private LNode<T> start;
     private LNode<T> end;
@@ -126,6 +128,33 @@ public class MyLinkedList<T>{
 	result += "]";
 	return result;
     }
+
+   /*
+   private interface MyLLIterator<T>{
+       
+       LNode<T> start;
+
+       public T next(){
+	   if(hasNext()){
+	       return start.getNext().getData();
+	   }else{
+	       throw new NoSuchElementException();
+	   }
+       }
+       
+       public boolean hasNext(){
+	   if(start.getNext()!=null){
+	       return true;
+	   }else{
+	       return false;
+	   }
+       }
+
+       public void remove(){
+	   throw new UnsupportedOperationException();
+       }
+   }
+   */
 
     public static void main(String[]arg){
 	
