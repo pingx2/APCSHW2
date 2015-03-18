@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyLinkedList<T> implements MyLLIterator<T>{
+public class MyLinkedList<T> implements Iterable<T>{
 
     private LNode<T> start;
     private LNode<T> end;
@@ -127,23 +127,29 @@ public class MyLinkedList<T> implements MyLLIterator<T>{
 	}
 	result += "]";
 	return result;
-    }
+   }
 
-   /*
-   private interface MyLLIterator<T>{
+
+   private class MyLLIterator implements Iterator<T>{
        
-       LNode<T> start;
+       private LNode<T> current;
+
+       public MyLLIterator(){
+	   current = start;
+       }
 
        public T next(){
-	   if(hasNext()){
-	       return start.getNext().getData();
+	   T temp = current.getData();
+	   current = current.getNext();
+	   if(temp != null){
+	       return temp;
 	   }else{
 	       throw new NoSuchElementException();
 	   }
        }
        
        public boolean hasNext(){
-	   if(start.getNext()!=null){
+	   if(current != null){
 	       return true;
 	   }else{
 	       return false;
@@ -154,8 +160,11 @@ public class MyLinkedList<T> implements MyLLIterator<T>{
 	   throw new UnsupportedOperationException();
        }
    }
-   */
-
+   
+   public Iterator<T> iterator(){
+       return new MyLLIterator();
+   }
+   
     public static void main(String[]arg){
 	
 	
@@ -188,6 +197,8 @@ public class MyLinkedList<T> implements MyLLIterator<T>{
 	System.out.println(a);
 
 
+
+
 	MyLinkedList<String> b = new MyLinkedList<String>();
 
 	b.add("H");
@@ -203,7 +214,11 @@ public class MyLinkedList<T> implements MyLLIterator<T>{
 	System.out.println(b.get(1));
 	System.out.println(b.indexOf("I"));
 	System.out.println(b.size());
-	System.out.println(b);
+	System.out.println(a);
+	
+	for(int i : a){
+	    System.out.println(i);
+	}
 
     }
 }
