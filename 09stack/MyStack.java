@@ -18,13 +18,21 @@ public class MyStack<E>{
     }
 
     public E peek(){
-	return stack.get(0);
+	if(!empty()){
+	    return stack.get(0);
+	}else{
+	    throw new EmptyStackException();
+	}
     }
 
     public E pop(){
-	E current = stack.get(0);
-	stack.remove(0);
-	return current;
+	if(!empty()){	    
+	    E current = stack.get(0);
+	    stack.remove(0);
+	    return current;
+	}else{
+	    throw new EmptyStackException();
+	}
     }
 
     public boolean empty(){
@@ -49,8 +57,14 @@ public class MyStack<E>{
 	System.out.println(a.pop());
 	System.out.println(a.pop());
 	System.out.println(a.pop());
+	
+	a.push("1");
+	a.push("2");	
 
 	System.out.println(a.peek());
+
+	//System.out.println(a.pop());
+	//System.out.println(a.peek());
 
 
 
