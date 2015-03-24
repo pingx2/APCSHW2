@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class MyQueue{
+public class MyQueue<T>{
 
     private MyLinkedList<T> stack;
 
@@ -8,13 +8,32 @@ public class MyQueue{
 	return "zeng.pingping";
     }
     
-    public T enqueue(T item){
-	stack.add(0,item);
-	return item;
+    public MyQueue(){
+	stack = new MyLinkedList<T>();
+    }
+
+    public boolean enqueue(T item){
+	stack.add(item);
+	return true;
     }
 
     public T dequeue(){
-	if(stack.size()!=0){
-	    stack.remove(size()-1);
-	    
+	T current = stack.get(0);
+	stack.remove(0);
+	return current;
     }
+
+    public static void main(String[]args){
+
+	MyQueue<Integer> a = new MyQueue<Integer>();
+	
+	a.enqueue(1);
+	a.enqueue(2);
+	a.enqueue(3);
+	
+	System.out.println(a.dequeue());
+	System.out.println(a.dequeue());
+	System.out.println(a.dequeue());
+
+    }
+}
