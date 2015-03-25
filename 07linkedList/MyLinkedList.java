@@ -61,13 +61,20 @@ public class MyLinkedList<T> implements Iterable<T>{
 	if(index < 0 || index > size()){
 	    throw new IndexOutOfBoundsException();
 	}
-	LNode<T> current = start;
-	for(int i = 0; i < index - 1; i++){
+	if(index == 0){
+	    LNode<T> next = new LNode<T>(n,start);
+	    start = next;
+	    size++;
+	}else{
+	    LNode<T> current = start;
+	    for(int i = 0; i < index - 1; i++){
 	    current = current.getNext();
+	    }
+	    LNode<T> next = new LNode<T>(n,current.getNext());
+	    current.setNext(next);
+	    size++;
 	}
-	LNode<T> next = new LNode<T>(n,current.getNext());
-	current.setNext(next);
-	size++;
+    
     }
     
     public boolean remove(int index){
@@ -174,33 +181,15 @@ public class MyLinkedList<T> implements Iterable<T>{
 	a.add(1);
 	a.add(2);
 	a.add(3);
-	System.out.println(a);
-	a.set(1,4);
-	System.out.println(a);
-	System.out.println(a.get(1));
-	System.out.println(a.indexOf(4));
-	System.out.println(a.size());
-	a.add(2,6);
-	System.out.println(a);
-	a.remove(1);
-	a.remove(1);
-	//a.remove(5);
-	a.remove(0);
-	a.remove(0);
-	System.out.println(a);
-	a.add(1);
-	a.add(3);
-	a.add(2,4);
-	//a.add(5,2);
-	a.set(1,3);
-	//System.out.println(a.indexOf(10));
+	a.add(0,6);
+	a.add(0,5);
+	a.add(0,4);
 	System.out.println(a);
 
 
 
-
+	
 	MyLinkedList<String> b = new MyLinkedList<String>();
-
 	b.add("H");
 	b.add("I");
 	System.out.println(b);
@@ -214,11 +203,12 @@ public class MyLinkedList<T> implements Iterable<T>{
 	System.out.println(b.get(1));
 	System.out.println(b.indexOf("I"));
 	System.out.println(b.size());
-	System.out.println(a);
+	System.out.println(b);
 	
 	for(int i : a){
 	    System.out.println(i);
 	}
+	
 
     }
 }
