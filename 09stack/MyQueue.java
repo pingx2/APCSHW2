@@ -2,24 +2,24 @@ import java.util.*;
 
 public class MyQueue<T>{
 
-    private MyLinkedList<T> stack;
+    private MyLinkedList<T> queue;
 
     public String name(){
 	return "zeng.pingping";
     }
     
     public MyQueue(){
-	stack = new MyLinkedList<T>();
+	queue = new MyLinkedList<T>();
     }
 
     public boolean enqueue(T item){
-	stack.add(item);
+	queue.add(item);
 	return true;
     }
 
     public T dequeue(){
-	T current = stack.get(0);
-	stack.remove(0);
+	T current = queue.get(0);
+	queue.remove(0);
 	return current;
     }
 
