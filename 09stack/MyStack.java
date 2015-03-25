@@ -1,23 +1,23 @@
 import java.util.*;
 
-public class MyStack<E>{
+public class MyStack<T>{
     
-    private LinkedList<E> stack;
+    private MyLinkedList<T> stack;
 
     public String name(){
 	return "zeng.pingping";
     }
 
     public MyStack(){
-	stack = new LinkedList<E>();
+	stack = new MyLinkedList<T>();
     }
 
-   public E push(E item){
+   public T push(T item){
        stack.add(0,item);
        return item;
     }
 
-    public E peek(){
+    public T peek(){
 	if(!empty()){
 	    return stack.get(0);
 	}else{
@@ -25,9 +25,9 @@ public class MyStack<E>{
 	}
     }
 
-    public E pop(){
+    public T pop(){
 	if(!empty()){	    
-	    E current = stack.get(0);
+	    T current = stack.get(0);
 	    stack.remove(0);
 	    return current;
 	}else{
@@ -43,11 +43,12 @@ public class MyStack<E>{
 	
 	MyStack<String> a = new MyStack<String>();
 
-	a.push("a");
-	a.push("b");
-	a.push("c");
-	a.push("1");
-	a.push("2");
+	System.out.println(a.push("a"));
+	System.out.println(a.push("b"));
+	System.out.println(a.push("c"));
+	System.out.println(a.push("1"));
+	System.out.println(a.push("2"));
+	System.out.println(a.push("3"));
 
 	System.out.println(a.peek());
 	System.out.println(a.pop());
@@ -65,7 +66,7 @@ public class MyStack<E>{
 
 	//System.out.println(a.pop());
 	//System.out.println(a.peek());
-
+	
 
 
 
