@@ -128,7 +128,7 @@ public class MyDeque<T>{
 
     public static void main(String[]args){
 	
-	MyDeque<Integer> que = new MyDeque<Integer>(5);
+	MyDeque<Integer> que = new MyDeque<Integer>();
 
 	que.addFirst(1);
 	que.addFirst(2);
