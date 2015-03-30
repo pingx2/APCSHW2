@@ -85,16 +85,13 @@ public class MyDeque<T>{
 		head = start;
 		tail += start;
 	    }else{
-		System.out.println("head" + head);
-		System.out.println("tail" + tail);
-		int j = 0;
-		for(int i = head + 1; i < que.length; i++){
-		    copy[start + j] = que[i];
-		    j++;
+		//System.out.println("head" + head);
+		//System.out.println("tail" + tail);
+		for(int i = head; i < que.length; i++){
+		    copy[start + i] = que[i];
 		}
-		for(int i = 0; i < head + 1; i++){
-		    copy[start + j] = que[i];
-		    j++;
+		for(int i = 0; i <= tail; i++){
+		    copy[start + que.length - head] = que[i];
 		}
 		head = start;
 		tail = start + que.length;
@@ -136,6 +133,7 @@ public class MyDeque<T>{
 	que.addLast(4);
 	que.addLast(5);
 	que.addLast(6);
+	System.out.println(que);
 	System.out.println(que.getFirst());
 	System.out.println(que.getLast());
 	System.out.println(que.removeFirst());
