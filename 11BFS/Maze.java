@@ -5,35 +5,42 @@ public class Maze{
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
     private static final String show =  "\033[?25h";
-
-    public String name(){
-	return "zeng.pingping";
-    }
     
-
-    //frontier class
-
+    private String go(int x,int y){
+	return ("\033[" + x + ";" + y + "H");
+    }
 
     private class Coordinate{
 
 	private int xcor, ycor;
-	private Coordinate cor;
+	private Coordinate prev;
 
 	public Coordinate(int x, int y, Coordinate c){
 	    xcor = x;
 	    ycor = y;
-	    cor = c;
+	    prev = c;
+	}
+
+	public int getx(){
+	    return xcor;
+	}
+
+	public int gety(){
+	    return ycor;
+	}
+	public Coordinate getc(){
+	    return prev;
 	}
 
     }
 
-    private int[][] num;
-    private Coordinate[] moves;
-
-    private static final DFS = 1;
-
+    int startx, starty;
+    int maxx, maxy;
+    char[][] maze;
+    MyDeque<Coordinate> frontier;
 
     public Maze(String filename){
+       
 	startx = -1;
 	starty = -1;
 	String ans = "";
@@ -65,7 +72,32 @@ public class Maze{
     }
 
     public String toString(){
+	String ans = ""+maxx+","+maxy+"\n";
+	for(int i=0;i<maxx*maxy;i++){
+	    if(i%maxx ==0 && i!=0){
+		ans+="\n";
+	    }
+	    ans += maze[i%maxx][i/maxx];
+	}
+	return ans;
+    }
 
+    public String toString(boolean animate){
+	if(!animate){
+	    toString();
+	}
+	String ans = ""+maxx+","+maxy+"\n";
+	for(int i=0;i<maxx*maxy;i++){
+	    if(i%maxx ==0 && i!=0){
+		ans+="\n";
+	    }
+	    ans += maze[i%maxx][i/maxx];
+	}
+	return hide+go(0,0)+ans+"\n"+show;
+    }
+
+    private boolean solve(boolean animate, int mode){
+	
     }
 
     public boolean solveBFS(boolean animate){
@@ -83,8 +115,14 @@ public class Maze{
     public boolean solveDFS(){
 	return solveDFS(false);
     }
-	
 
+    public int[] solutionCoordinates(){ 
+
+    }    
+
+    public String name(){
+	return "zeng.pingping";
+    }
 
 
 
