@@ -114,19 +114,21 @@ public class Maze{
 	    return false;
 	}else{
 	    maze[startx][starty] = ' ';
-	    return solve(startx,starty,animate);
+	    return solve(startx,starty,0,animate);
 	}   
     }
 
-    public boolean solveBFS(int x, int y, boolean animate){
+    public boolean solveBFS(int x, int y, int n, boolean animate){
 	if(animate){
 	    System.out.println(this);
 	    wait(20);
 	}
 	if(maze[x][y]=='E'){
-	    frontier.addLast(
+	    frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
 	    return true;
 	}
+	if(maze[x][y]==' '){
+	    maze[x][y]='x';
     }
     
     public boolean solveDFS(boolean animate){
