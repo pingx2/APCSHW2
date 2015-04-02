@@ -1,20 +1,25 @@
 import java.util.*;
 
 public class MyDeque<T>{
+
     private int head, tail, size;
     private Object[] que;
+
     public String name(){
 	return "zeng.pingping";
     }
+
     public MyDeque(){
 	this(100);
     }
+
     public MyDeque(int s){
 	que = new Object[s];
 	head = s/2 + 1;
 	tail = s/2;
 	size = 0;
     }
+
     public void addFirst(T value){
 	resize();
 	head--;
@@ -24,6 +29,7 @@ public class MyDeque<T>{
 	que[head] = value;
 	size++;
     }
+
     public void addLast(T value){
 	resize();
 	tail++;
@@ -33,6 +39,7 @@ public class MyDeque<T>{
 	que[tail] = value;
 	size++;
     }
+
     public T removeFirst(){
 	if(size == 0){
 	    throw new NoSuchElementException();
@@ -51,18 +58,25 @@ public class MyDeque<T>{
 	size--;
 	return value;
     }
+
     public T getFirst(){
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
 	return (T)que[head];
     }
+
     public T getLast(){
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
 	return (T)que[tail];
     }
+
+    public int size(){
+	return size;
+    }
+
     public void resize(){
 	if(size == que.length){
 	    Object[] copy = new Object[que.length * 2];
@@ -87,6 +101,7 @@ public class MyDeque<T>{
 	    que = copy;
 	}
     }
+
     public String toString(){
 	String result = "[";
 	if(size > 0){

@@ -4,20 +4,20 @@ public class Maze{
 
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
-    private static final String show =  "\033[?25h";
-    
+    private static final String show =  "\033[?25h"; 
     private String go(int x,int y){
 	return ("\033[" + x + ";" + y + "H");
     }
 
     private class Coordinate{
 
-	private int xcor, ycor;
+	private int xcor, ycor, num;
 	private Coordinate prev;
 
-	public Coordinate(int x, int y, Coordinate c){
+	public Coordinate(int x, int y, int n, Coordinate c){
 	    xcor = x;
 	    ycor = y;
+	    num = n;
 	    prev = c;
 	}
 
@@ -28,9 +28,18 @@ public class Maze{
 	public int gety(){
 	    return ycor;
 	}
-	public Coordinate getc(){
+	public int getnum(){
+	    return num;
+	}
+
+	public Coordinate getprev(){
 	    return prev;
 	}
+
+	public boolean hasPrev(){
+	    return (prev != null);
+	}
+		
 
     }
 
@@ -96,16 +105,57 @@ public class Maze{
 	return hide+go(0,0)+ans+"\n"+show;
     }
 
-    private boolean solve(boolean animate, int mode){
-	
-    }
+    //private boolean solve(boolean animate, int mode){}
 
     public boolean solveBFS(boolean animate){
-	
+	//return solve(animate, -1);
+	if(startx < 0){ 
+	    System.out.println("No starting point 'S' found in maze.");
+	    return false;
+	}else{
+	    maze[startx][starty] = ' ';
+	    return solve(startx,starty,animate);
+	}   
     }
 
+    public boolean solveBFS(int x, int y, boolean animate){
+	if(animate){
+	    System.out.println(this);
+	    wait(20);
+	}
+	if(maze[x][y]=='E'){
+	    frontier.addLast(
+	    return true;
+	}
+    }
+    
     public boolean solveDFS(boolean animate){
-	
+	//return solve(animate, 0);
+	if(startx < 0){
+	    System.out.println("No starting point 'S' found in maze.");
+	    return false;
+    }else{
+	    maze[startx][starty]=' ';
+	    return solve(startx,starty,animate);
+	}
+    }
+    
+    public boolean solveDFS(int x, int y, boolean animate){
+	if(animate){
+	    System.out.println(this);
+	    wait(20);
+	}
+	if(maze[x][y]=='E'){
+	    return true;
+	}
+	if(maze[x][y]==' '){
+	    maze[x][y]='@';
+	    if(solve(x+1,y)||solve(x-1,y)||solve(x,y+1)||solve(x,y-1)){
+		return true;
+	    }
+	    maze[x][y]='.';
+	}     
+	return false;
     }
 
     public boolean solveBFS(){
@@ -117,9 +167,26 @@ public class Maze{
     }
 
     public int[] solutionCoordinates(){ 
-
+	//int[] moves = new int[
+	int i = 1;
+	Coordinate current = frontier.getLast();
+	while(current.hasPrev()){
+	    moves[moves.length - i] = current.getx();
+	    i++;
+	    moves[moves.length - i] = current.gety();
+	    i++;
+	}
+	return moves;
     }    
-
+    
+    public void wait(int millis){
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
+    
     public String name(){
 	return "zeng.pingping";
     }
