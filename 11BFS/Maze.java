@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Maze{
 
@@ -32,7 +33,7 @@ public class Maze{
 	    return num;
 	}
 
-	public Coordinate getprev(){
+	public Coordinate getPrev(){
 	    return prev;
 	}
 
@@ -49,7 +50,7 @@ public class Maze{
     MyDeque<Coordinate> frontier;
 
     public Maze(String filename){
-       
+	frontier = new MyDeque<Coordinate>();
 	startx = -1;
 	starty = -1;
 	String ans = "";
@@ -106,6 +107,8 @@ public class Maze{
     }
 
     //private boolean solve(boolean animate, int mode){}
+    
+    /*
 
     public boolean solveBFS(boolean animate){
 	//return solve(animate, -1);
@@ -130,19 +133,21 @@ public class Maze{
 	if(maze[x][y]==' '){
 	    maze[x][y]='x';
     }
-    
+    */
+
     public boolean solveDFS(boolean animate){
 	//return solve(animate, 0);
 	if(startx < 0){
 	    System.out.println("No starting point 'S' found in maze.");
 	    return false;
     }else{
+	    
 	    maze[startx][starty]=' ';
-	    return solve(startx,starty,animate);
+	    return solveDFS(startx,starty,0,animate);
 	}
     }
     
-    public boolean solveDFS(int x, int y, boolean animate){
+    public boolean solveDFS(int x, int y, int n,  boolean animate){
 	if(animate){
 	    System.out.println(this);
 	    wait(20);
@@ -151,15 +156,23 @@ public class Maze{
 	    return true;
 	}
 	if(maze[x][y]==' '){
-	    maze[x][y]='@';
-	    if(solve(x+1,y)||solve(x-1,y)||solve(x,y+1)||solve(x,y-1)){
+	    maze[x][y]='x';
+	    if(x != startx && y != starty){
+		Coordinate current = new Coordinate(x,y,n+1,frontier.getLast());
+	    }else{
+		Coordinate current = null;
+		frontier.addLast(new Coordinate(x,y,n+1,current));
+	    }
+	    if(solveDFS(x+1,y,n+1,animate)||solveDFS(x-1,y,n+1,animate)||solveDFS(x,y+1,n+1,animate)||solveDFS(x,y-1,n+1,animate)){
 		return true;
 	    }
 	    maze[x][y]='.';
+	    frontier.removeLast();
 	}     
 	return false;
     }
 
+    /*
     public boolean solveBFS(){
 	return solveBFS(false);
     }
@@ -167,9 +180,10 @@ public class Maze{
     public boolean solveDFS(){
 	return solveDFS(false);
     }
+    */
 
     public int[] solutionCoordinates(){ 
-	//int[] moves = new int[
+	int[] moves = new int[frontier.getLast().getnum()];
 	int i = 1;
 	Coordinate current = frontier.getLast();
 	while(current.hasPrev()){
@@ -177,7 +191,10 @@ public class Maze{
 	    i++;
 	    moves[moves.length - i] = current.gety();
 	    i++;
+	    current = current.getPrev();
 	}
+	moves[1] = current.getx();
+	moves[0] = current.gety();
 	return moves;
     }    
     
