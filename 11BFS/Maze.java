@@ -113,16 +113,31 @@ public class Maze{
 	frontier.addLast(new Coordinate(startx,starty,count,null));
 	while(frontier.size()!=0){
 	    Coordinate current = frontier.removeFirst();
-	    int xcor = current.getx();
-	    int ycor = current.gety();
+	    int x = current.getx();
+	    int y = current.gety();
 	    count++;
 	    if(checkE(x,y-1,count,current)){
 		return true;
 	    }else{
 		check(x,y-1,count,current);
 	    }
-	    
+	    if(checkE(x,y+1,count,current)){
+		return true;
+	    }else{
+		check(x,y+1,count,current);
+	    }
+	    if(checkE(x-1,y,count,current)){
+		return true;
+	    }else{
+		check(x-1,y,count,current);
+	    }
+	    if(checkE(x+1,y,count,current)){
+		return true;
+	    }else{
+		check(x+1,y,count,current);
+	    }
 	}   
+	return false;
     }
 
 
@@ -137,8 +152,8 @@ public class Maze{
     
     public void check(int x, int y, int c, Coordinate prev){
 	if(maze[y][x] == ' '){
-	    maze[y][x] == 'x';
-	    frontier.addLast(newCoordinate(x,y,c,prev));
+	    maze[y][x] = 'x';
+	    frontier.addLast(new Coordinate(x,y,c,prev));
 	}
     }
     
