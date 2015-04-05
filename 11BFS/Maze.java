@@ -41,16 +41,20 @@ public class Maze{
 	    return (prev != null);
 	}
 		
-
+	public String toString(){
+	    return "["+getx()+" ,"+gety()+"]";
+	}
+	
     }
 
     int startx, starty;
     int maxx, maxy;
     char[][] maze;
+    int[]moves;
     MyDeque<Coordinate> frontier;
 
     public Maze(String filename){
-	frontier = new MyDeque<Coordinate>();
+	frontier = new MyDeque<Coordinate>(5);
 	startx = -1;
 	starty = -1;
 	String ans = "";
@@ -91,13 +95,13 @@ public class Maze{
 	}
 	return ans;
     }
-
+    
     public String toString(boolean animate){
-	if(!animate){
-	    return toString();
-	}
 	String ans = toString();
-	return clear+hide+go(0,0)+ans+"\n"+show;
+	if(animate){
+	    return clear+hide+go(0,0)+ans+"\n"+show;
+	}
+	return ans;
     }
 
     //private boolean solve(boolean animate, int mode){}
@@ -110,17 +114,27 @@ public class Maze{
 	}
 	int count = 0;
 	maze[starty][startx] = ' ';
-	frontier.addLast(new Coordinate(startx,starty,count,null));
+	frontier.addFirst(new Coordinate(startx,starty,count,null));
+	//System.out.println(frontier.getFirst().getx());
+	//System.out.println(frontier);
 	while(frontier.size()!=0){
-	    Coordinate current = frontier.removeFirst();
+	    if(animate){
+		System.out.println(this.toString(animate));
+		wait(20);
+	    }
+	    Coordinate current = frontier.getFirst();
+	    //System.out.println(current);
 	    int x = current.getx();
 	    int y = current.gety();
+	    frontier.removeFirst();
 	    count++;
 	    if(checkE(x,y-1,count,current)){
 		return true;
 	    }else{
 		check(x,y-1,count,current);
 	    }
+	    //System.out.println(frontier);
+	    
 	    if(checkE(x,y+1,count,current)){
 		return true;
 	    }else{
@@ -142,6 +156,7 @@ public class Maze{
 
 
     public boolean checkE(int x, int y, int c, Coordinate prev){
+	//System.out.println(frontier);
 	if(maze[y][x] == 'E'){
 	    maze[y][x] = 'x';
 	    frontier.addLast(new Coordinate(x,y,c,prev)); 
@@ -151,28 +166,12 @@ public class Maze{
     }
     
     public void check(int x, int y, int c, Coordinate prev){
+	//System.out.println(frontier);
 	if(maze[y][x] == ' '){
 	    maze[y][x] = 'x';
 	    frontier.addLast(new Coordinate(x,y,c,prev));
 	}
     }
-    
-		
-    /*
-    public boolean solveBFS(int x, int y, int n, boolean animate){
-	if(animate){
-	    System.out.println(this);
-	    wait(20);
-	}
-	if(maze[y][x]=='E'){
-	    frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
-	    return true;
-	}
-	if(maze[y][x]==' '){
-	    frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
-	    maze[y][x]='x';
-    }
-    */
 
     public boolean solveDFS(boolean animate){
 	//return solve(animate, 0);
@@ -187,11 +186,13 @@ public class Maze{
     
     public boolean solveDFS(int x, int y, int n, boolean animate){
 	if(animate){
-	    System.out.println(this);
+	    System.out.println(this.toString(animate));
 	    wait(20);
 	}
 	if(maze[y][x]=='E'){
 	    frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
+	    System.out.println(frontier.getLast().getPrev());
+	    System.out.println(frontier.getLast());
 	    return true;
 	}
 	if(maze[y][x]==' '){
@@ -219,8 +220,10 @@ public class Maze{
 	return solveDFS(false);
     }
 
+    
     public int[] solutionCoordinates(){ 
-	int[] moves = new int[frontier.getLast().getnum()+1];
+	//System.out.println(frontier.toString());
+	moves = new int[frontier.getLast().getnum()+1];
 	int i = 1;
 	Coordinate current = frontier.getLast();
 	while(current.hasPrev()){
@@ -235,6 +238,7 @@ public class Maze{
 	return moves;
     }    
     
+    
     public void wait(int millis){
 	try {
 	    Thread.sleep(millis);
@@ -248,5 +252,17 @@ public class Maze{
     }
 
 
+    public static void main(String[]args){
+	
+	Maze m = new Maze("data1.dat");
 
-} 
+	if(m.solveBFS(true)){
+	    System.out.println(m);
+	}else{
+	    System.out.println("No solution");
+	}
+
+	
+    } 
+
+}
