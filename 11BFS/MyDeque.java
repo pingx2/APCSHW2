@@ -10,7 +10,7 @@ public class MyDeque<T>{
     }
 
     public MyDeque(){
-	this(100);
+	this(10);
     }
 
     public MyDeque(int s){
@@ -46,6 +46,9 @@ public class MyDeque<T>{
 	}
 	T value = (T)que[head];
 	head++;
+	if(head >= que.length){
+	    head = 0;
+	}
 	size--;
 	return value;
     }
@@ -55,6 +58,9 @@ public class MyDeque<T>{
 	}
 	T value = (T)que[tail];
 	tail--;
+	if(tail < 0){
+	    tail = que.length - 1;
+	}
 	size--;
 	return value;
     }
@@ -80,40 +86,40 @@ public class MyDeque<T>{
     public void resize(){
 	if(size == que.length){
 	    Object[] copy = new Object[que.length * 2];
-	    int start = copy.length/2 - (size/2);
-	    if(head < tail){
+	    int start = 0;
+	    if(head <= tail){
 		for(int i = head; i <= tail; i++){
-		    copy[start + i] = que[i];
-		}
-		head = start;
-		tail += start;
+		    copy[start] = que[i];
+		    start++;
+		}  
 	    }else{
 		for(int i = head; i < que.length; i++){
-		    copy[start + i] = que[i];
+		    copy[start] = que[i];
+		    start++;
 		}
 		for(int i = 0; i <= tail; i++){
-		    copy[start + que.length - head] = que[i];
+		    copy[start] = que[i];
+		    start++;
 		}
-		head = start;
-		tail = start + que.length;
 	    }
-
+	    head = 0;
+	    tail = size - 1;
 	    que = copy;
 	}
     }
-
+    
     public String toString(){
 	String result = "[";
 	if(size > 0){
-	    if(head < tail){
+	    if(head <= tail){
 		for(int i = head; i <= tail; i++){
 		    result += que[i] + ", ";
 		}
 	    }else{
-		for(int i = head + 1; i < que.length; i++){
+		for(int i = head; i < que.length; i++){
 		    result += que[i] + ", ";
 		}
-		for(int i = 0; i < head + 1; i++){
+		for(int i = 0; i <= tail; i++){
 		    result += que[i] + ", ";
 		}
 	    }
@@ -121,6 +127,7 @@ public class MyDeque<T>{
 	}
 	return result + "]";
     }
+
  
     
 }

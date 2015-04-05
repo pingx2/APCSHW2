@@ -54,7 +54,7 @@ public class Maze{
     MyDeque<Coordinate> frontier;
 
     public Maze(String filename){
-	frontier = new MyDeque<Coordinate>(5);
+	frontier = new MyDeque<Coordinate>(10);
 	startx = -1;
 	starty = -1;
 	String ans = "";
@@ -222,14 +222,14 @@ public class Maze{
 
     
     public int[] solutionCoordinates(){ 
-	//System.out.println(frontier.toString());
+	System.out.println(frontier.toString());
 	moves = new int[frontier.getLast().getnum()+1];
 	int i = 1;
 	Coordinate current = frontier.getLast();
 	while(current.hasPrev()){
-	    moves[moves.length - i] = current.getx();
-	    i++;
 	    moves[moves.length - i] = current.gety();
+	    i++;
+	    moves[moves.length - i] = current.getx();
 	    i++;
 	    current = current.getPrev();
 	}
@@ -258,6 +258,7 @@ public class Maze{
 
 	if(m.solveBFS(true)){
 	    System.out.println(m);
+	    System.out.println(Arrays.toString(m.solutionCoordinates()));
 	}else{
 	    System.out.println("No solution");
 	}
