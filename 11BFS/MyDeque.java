@@ -10,7 +10,7 @@ public class MyDeque<T>{
     }
 
     public MyDeque(){
-	this(10);
+	this(100);
     }
 
     public MyDeque(int s){
@@ -128,6 +128,6 @@ public class MyDeque<T>{
 	return result + "]";
     }
 
- 
+  
     
 }
