@@ -4,6 +4,7 @@ public class MyDeque<T>{
 
     private int head, tail, size;
     private Object[] que;
+    private int[] p;
 
     public String name(){
 	return "zeng.pingping";
@@ -15,10 +16,29 @@ public class MyDeque<T>{
 
     public MyDeque(int s){
 	que = new Object[s];
+	p = new int[s];
 	head = s/2 + 1;
 	tail = s/2;
 	size = 0;
     }
+
+    public void add(T value, int n){
+	addLast(value);
+	p[tail] = n;
+	
+    }
+
+    public T removeSmallest(){
+	int min = p[head];
+	if(head < tail){
+	    for(int i = head + 1; i <= tail; i++){
+		if(p[i] < min){
+		    min = p[i];
+		}
+	    }
+	}else{
+
+		
 
     public void addFirst(T value){
 	resize();
@@ -86,25 +106,30 @@ public class MyDeque<T>{
     public void resize(){
 	if(size == que.length){
 	    Object[] copy = new Object[que.length * 2];
+	    int[] pcopy = new int[p.length * 2];
 	    int start = 0;
 	    if(head <= tail){
 		for(int i = head; i <= tail; i++){
 		    copy[start] = que[i];
+		    pcopy[start] = p[i];
 		    start++;
 		}  
 	    }else{
 		for(int i = head; i < que.length; i++){
 		    copy[start] = que[i];
+		    pcopy[start] = p[i];
 		    start++;
 		}
 		for(int i = 0; i <= tail; i++){
 		    copy[start] = que[i];
+		    pcopy[start] = p[i];
 		    start++;
 		}
 	    }
 	    head = 0;
 	    tail = size - 1;
 	    que = copy;
+	    p = pcopy;
 	}
     }
     
