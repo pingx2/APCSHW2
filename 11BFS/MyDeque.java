@@ -41,7 +41,7 @@ public class MyDeque<T>{
 		}
 	    }
 	}else{
-	    for(int i = tail; i < size(); i++){
+	    for(int i = tail; i < que.length; i++){
 		if(p[i] < min){
 		    min = p[i];
 		    index = i;
@@ -55,18 +55,28 @@ public class MyDeque<T>{
 	    }
 	}
 	T value = (T)que[index];
-	//remove value and fix array
-	head++;
-	if(head >= que.length){
-	    head = 0;
+	if(head < tail){
+	    for(int i = index - 1; i >= head; i--){
+		que[i+1] = que[i];
+		p[i+1] = p[i];
+	    }
+	    head++;
+	    if(head == que.length){
+		head = 0;
+	    }
+	}else{
+	    for(int i = index + 1; i >= tail; i++){
+		que[i-1] = que[i];
+		p[i-1] = p[i];
+	    }
+	    tail--;
+	    if(tail < 0){
+		tail = que.length-1;
+	    }
 	}
 	size--;
 	return value;
     }
-
-	
-
-		
 
     public void addFirst(T value){
 	resize();
@@ -100,6 +110,7 @@ public class MyDeque<T>{
 	size--;
 	return value;
     }
+
     public T removeLast(){
 	if(size == 0){
 	    throw new NoSuchElementException();
@@ -181,6 +192,21 @@ public class MyDeque<T>{
 	return result + "]";
     }
 
-  
+    public static void main(String[]args){
+	
+	MyDeque q = new MyDeque<String>();
+
+	q.add('A',2);
+	q.add('B',0);
+	q.add('C',1);
+	q.add('D',4);
+
+	System.out.println(q);
+
+	q.removeSmallest();
+	System.out.println(q);
+
+
+    }
     
 }
