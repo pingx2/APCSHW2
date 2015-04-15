@@ -247,9 +247,9 @@ public class Maze{
 
     public static void main(String[]args){
 	
-	Maze m = new Maze("data2.dat");
+	Maze m = new Maze("data1.dat");
  
-	if(m.solveDFS(true)){
+	if(m.solveBFS(true)){
 	    System.out.println(m);
 	    System.out.println(Arrays.toString(m.solutionCoordinates()));
 	}else{
