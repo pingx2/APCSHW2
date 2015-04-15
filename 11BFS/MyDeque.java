@@ -11,7 +11,7 @@ public class MyDeque<T>{
     }
 
     public MyDeque(){
-	this(100);
+	this(3);
     }
 
     public MyDeque(int s){
@@ -65,7 +65,7 @@ public class MyDeque<T>{
 		head = 0;
 	    }
 	}else{
-	    for(int i = index + 1; i >= tail; i++){
+	    for(int i = index + 1; i <= tail; i++){
 		que[i-1] = que[i];
 		p[i-1] = p[i];
 	    }
@@ -199,14 +199,24 @@ public class MyDeque<T>{
 	q.add('A',2);
 	q.add('B',0);
 	q.add('C',1);
-	q.add('D',4);
 
 	System.out.println(q);
 
 	q.removeSmallest();
 	System.out.println(q);
 
+	
+	System.out.println(q.removeSmallest());
+	System.out.println(q);
 
+	q.add('D',4);
+	q.add('E',3);
+	q.add('F',1);
+
+	System.out.println(q.removeSmallest());
+	System.out.println(q);
+
+	
     }
     
 }
