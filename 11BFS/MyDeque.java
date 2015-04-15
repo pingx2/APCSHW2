@@ -22,21 +22,49 @@ public class MyDeque<T>{
 	size = 0;
     }
 
-    public void add(T value, int n){
+    public void add(T value, int priority){
 	addLast(value);
-	p[tail] = n;
-	
+	p[tail] = priority;	
     }
 
     public T removeSmallest(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
 	int min = p[head];
+	int index = head;
 	if(head < tail){
 	    for(int i = head + 1; i <= tail; i++){
 		if(p[i] < min){
 		    min = p[i];
+		    index = i;
 		}
 	    }
 	}else{
+	    for(int i = tail; i < size(); i++){
+		if(p[i] < min){
+		    min = p[i];
+		    index = i;
+		}
+	    }
+	    for(int i = 0; i < head; i++){
+		if(p[i] < min){
+		    min = p[i];
+		    index = i;
+		}
+	    }
+	}
+	T value = (T)que[index];
+	//remove value and fix array
+	head++;
+	if(head >= que.length){
+	    head = 0;
+	}
+	size--;
+	return value;
+    }
+
+	
 
 		
 
