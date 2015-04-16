@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 
 public class Maze{
 
@@ -48,6 +49,7 @@ public class Maze{
     }
 
     int startx, starty;
+    int endx, endy;
     int maxx, maxy;
     char[][] maze;
     int[]moves;
@@ -83,6 +85,14 @@ public class Maze{
 		starty = i/maxx;
 	    }
 	}
+	for(int i=0;i<ans.length();i++){
+	    char c = ans.charAt(i);
+	    maze[i%maxx][i/maxx]= c;
+	    if(c=='E'){
+		endx = i%maxx;
+		endy = i/maxx;
+	    }
+	}
     }
 
     public String toString(){
@@ -103,6 +113,59 @@ public class Maze{
 	    return clear+hide+go(0,0)+ans+"\n"+show;
 	}
 	return ans;
+    }
+
+    public boolean solveBest(boolean animate){
+	if(startx < 0){
+	    System.out.println("No starting point 'S' found in maze.");
+	    return false;
+	}
+	int count = -1;
+	int pr = distance(startx,starty);
+	maze[startx][starty] = ' ';
+	frontier.add(new Coordinate(startx,starty,count,null),pr);
+	while(frontier.size()!=0){
+	    if(animate){
+		System.out.println(this.toString(animate));
+		wait(20);
+	    }
+	    Coordinate current = frontier.removeSmallest();
+	    int x = current.getx();
+	    int y = current.gety();
+	    count++;
+	    pr = distance(x, y-1);
+	    if(checkE2(x,y-1,count,current,pr)){
+		return true;
+	    }else{
+		check2(x,y-1,count,current,pr);
+	    }	    
+	    pr = distancenumMoves(x, y+1);
+	    if(checkE2(x,y+1,count,current,pr)){
+		return true;
+	    }else{
+		check2(x,y+1,count,current,pr);
+	    }
+	    pr = distance(x-1, y);
+	    if(checkE2(x-1,y,count,current,pr)){
+		return true;
+	    }else{
+		check2(x-1,y,count,current,pr);
+	    }
+	    pr = distance(x+1, y);
+	    if(checkE2(x+1,y,count,current,pr)){
+		return true;
+	    }else{
+		check2(x+1,y,count,current,pr);
+	    }
+	}   
+	return false;
+    }
+	   
+    public int distance(int x, int y){
+return 
+
+    public boolean solveAStar(boolean animate){
+
     }
 
     public boolean solveBFS(boolean animate){
@@ -146,7 +209,7 @@ public class Maze{
 	}   
 	return false;
     }
-
+    
 
     public boolean checkE(int x, int y, int c, Coordinate prev){
 	if(maze[x][y] == 'E'){
@@ -160,6 +223,21 @@ public class Maze{
 	if(maze[x][y] == ' '){
 	    maze[x][y] = 'x';
 	    frontier.addLast(new Coordinate(x,y,c,prev));
+	}
+    }
+
+    public boolean checkE2(int x, int y, int c, Coordinate prev, int pr){
+	if(maze[x][y] == 'E'){
+	    frontier.add(new Coordinate(x,y,c,prev),pr); 
+	    return true;
+	}
+	return false;
+    }
+    
+    public void check2(int x, int y, int c, Coordinate prev, int pr){
+	if(maze[x][y] == ' '){
+	    maze[x][y] = 'x';
+	    frontier.addLast(new Coordinate(x,y,c,prev),pr);
 	}
     }
 
@@ -206,7 +284,14 @@ public class Maze{
 	return solveDFS(false);
     }
 
+    public boolean solveBest(){
+	return solveBest(false);
+    }
     
+    public boolean solveAStar(){
+	return solveAStar(false);
+    }
+
     public int[] solutionCoordinates(){ 
 	Coordinate current = frontier.getLast();
 	int count = 1;
@@ -247,7 +332,7 @@ public class Maze{
 
     public static void main(String[]args){
 	
-	Maze m = new Maze("data1.dat");
+	Maze m = new Maze("data2.dat");
  
 	if(m.solveBFS(true)){
 	    System.out.println(m);
