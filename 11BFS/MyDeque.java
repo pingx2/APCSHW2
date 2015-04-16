@@ -27,6 +27,37 @@ public class MyDeque<T>{
 	p[tail] = priority;	
     }
 
+    public T getSmallest(){
+	if(size == 0){
+	    throw new NoSuchElementException();
+	}
+	int min = p[head];
+	int index = head;
+	if(head < tail){
+	    for(int i = head + 1; i <= tail; i++){
+		if(p[i] < min){
+		    min = p[i];
+		    index = i;
+		}
+	    }
+	}else{
+	    for(int i = tail; i < que.length; i++){
+		if(p[i] < min){
+		    min = p[i];
+		    index = i;
+		}
+	    }
+	    for(int i = 0; i < head; i++){
+		if(p[i] < min){
+		    min = p[i];
+		    index = i;
+		}
+	    }
+	}
+	return (T)que[index];
+    }
+	
+
     public T removeSmallest(){
 	if(size == 0){
 	    throw new NoSuchElementException();

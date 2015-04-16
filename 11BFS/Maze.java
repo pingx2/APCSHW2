@@ -129,7 +129,9 @@ public class Maze{
 		System.out.println(this.toString(animate));
 		wait(20);
 	    }
+	    System.out.println(frontier.removeSmallest());
 	    Coordinate current = frontier.removeSmallest();
+	    //System.out.println(current);
 	    int x = current.getx();
 	    int y = current.gety();
 	    count++;
@@ -333,9 +335,9 @@ public class Maze{
 
     public static void main(String[]args){
 	
-	Maze m = new Maze("data2.dat");
+	Maze m = new Maze("data1.dat");
  
-	if(m.solveBFS(true)){
+	if(m.solveBest(true)){
 	    System.out.println(m);
 	    System.out.println(Arrays.toString(m.solutionCoordinates()));
 	}else{
