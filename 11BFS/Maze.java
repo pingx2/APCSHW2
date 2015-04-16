@@ -139,7 +139,7 @@ public class Maze{
 	    }else{
 		check2(x,y-1,count,current,pr);
 	    }	    
-	    pr = distancenumMoves(x, y+1);
+	    pr = distance(x, y+1);
 	    if(checkE2(x,y+1,count,current,pr)){
 		return true;
 	    }else{
@@ -162,10 +162,11 @@ public class Maze{
     }
 	   
     public int distance(int x, int y){
-return 
+	return Math.abs(endx - x) + Math.abs(endy - y);
+    }
 
     public boolean solveAStar(boolean animate){
-
+	return false;
     }
 
     public boolean solveBFS(boolean animate){
@@ -237,7 +238,7 @@ return
     public void check2(int x, int y, int c, Coordinate prev, int pr){
 	if(maze[x][y] == ' '){
 	    maze[x][y] = 'x';
-	    frontier.addLast(new Coordinate(x,y,c,prev),pr);
+	    frontier.add(new Coordinate(x,y,c,prev),pr);
 	}
     }
 
