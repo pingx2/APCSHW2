@@ -33,7 +33,10 @@ public class MyDeque<T>{
 	}
 	int min = p[head];
 	int index = head;
-	if(head < tail){
+	if(size == 1){
+	    return (T)que[index];
+	}
+	if(head <= tail){
 	    for(int i = head + 1; i <= tail; i++){
 		if(p[i] < min){
 		    min = p[i];
@@ -41,13 +44,13 @@ public class MyDeque<T>{
 		}
 	    }
 	}else{
-	    for(int i = tail; i < que.length; i++){
+	    for(int i = head + 1; i < que.length; i++){
 		if(p[i] < min){
 		    min = p[i];
 		    index = i;
 		}
 	    }
-	    for(int i = 0; i < head; i++){
+	    for(int i = 0; i <= tail; i++){
 		if(p[i] < min){
 		    min = p[i];
 		    index = i;
@@ -62,26 +65,31 @@ public class MyDeque<T>{
 	if(size == 0){
 	    throw new NoSuchElementException();
 	}
-	int min = p[head];
-	int index = head;
-	if(head < tail){
-	    for(int i = head + 1; i <= tail; i++){
-		if(p[i] < min){
-		    min = p[i];
-		    index = i;
-		}
-	    }
+	int index;
+	if(size == 1){
+	    index = head;
 	}else{
-	    for(int i = tail; i < que.length; i++){
-		if(p[i] < min){
-		    min = p[i];
-		    index = i;
+	    int min = p[head];
+	    index = head;
+	    if(head <= tail){
+		for(int i = head + 1; i <= tail; i++){
+		    if(p[i] < min){
+			min = p[i];
+			index = i;
+		    }
 		}
-	    }
-	    for(int i = 0; i < head; i++){
-		if(p[i] < min){
+	    }else{
+		for(int i = head + 1; i < que.length; i++){
+		    if(p[i] < min){
 		    min = p[i];
 		    index = i;
+		    }
+		}
+		for(int i = 0; i <= tail; i++){
+		    if(p[i] < min){
+			min = p[i];
+			index = i;
+		    }
 		}
 	    }
 	}

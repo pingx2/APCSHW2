@@ -96,6 +96,10 @@ public class Maze{
 	    return F.getLast();
 	}
 
+	public Coordinate getSmallest(){
+	    return F.getSmallest();
+	}
+
 	public int size(){
 	    return F.size();
 	}
@@ -170,50 +174,6 @@ public class Maze{
 	}
 	return ans;
     }
-
-    public boolean solveBest(boolean animate){
-	if(startx < 0){
-	    System.out.println("No starting point 'S' found in maze.");
-	    return false;
-	}
-	frontier = new Frontier(2);
-	int count = -1;
-	maze[startx][starty] = ' ';
-	frontier.add(new Coordinate(startx,starty,count,null));
-	while(frontier.size()!=0){
-	    if(animate){
-		System.out.println(this.toString(animate));
-		wait(20);
-	    }
-	    System.out.println(frontier.remove());
-	    Coordinate current = frontier.remove();
-	    //System.out.println(current);
-	    int x = current.getx();
-	    int y = current.gety();
-	    count++;
-	    if(checkE(x,y-1,count,current)){
-		return true;
-	    }else{
-		check(x,y-1,count,current);
-	    }	    
-	    if(checkE(x,y+1,count,current)){
-		return true;
-	    }else{
-		check(x,y+1,count,current);
-	    }
-	    if(checkE(x-1,y,count,current)){
-		return true;
-	    }else{
-		check(x-1,y,count,current);
-	    }
-	    if(checkE(x+1,y,count,current)){
-		return true;
-	    }else{
-		check(x+1,y,count,current);
-	    }
-	}   
-	return false;
-    }
 	   
     public int distance(Coordinate c){
 	return Math.abs(endx - c.getx()) + Math.abs(endy - c.gety());
@@ -221,11 +181,6 @@ public class Maze{
 
     public int moves(Coordinate c){
 	return c.getnum();
-    }
-
-    public boolean solveAStar(boolean animate){
-	frontier = new Frontier(3);
-	return false;
     }
 
     public boolean solveBFS(boolean animate){
@@ -240,12 +195,13 @@ public class Maze{
 	while(frontier.size()!=0){
 	    if(animate){
 		System.out.println(this.toString(animate));
+		System.out.println(frontier);
 		wait(20);
 	    }
 	    Coordinate current = frontier.getFirst();
+	    frontier.remove();
 	    int x = current.getx();
 	    int y = current.gety();
-	    frontier.remove();
 	    count++;
 	    if(checkE(x,y-1,count,current)){
 		return true;
@@ -287,24 +243,6 @@ public class Maze{
 	}
     }
 
-    /*
-    public boolean checkE2(int x, int y, int c, Coordinate prev, int pr){
-	if(maze[x][y] == 'E'){
-	    frontier.add(new Coordinate(x,y,c,prev),pr); 
-	    return true;
-	}
-	return false;
-    }
-    
-    public void check2(int x, int y, int c, Coordinate prev, int pr){
-	if(maze[x][y] == ' '){
-	    maze[x][y] = 'x';
-	    frontier.add(new Coordinate(x,y,c,prev),pr);
-	}
-    }
-
-    */
-
     public boolean solveDFS(boolean animate){
 	frontier = new Frontier(0);
 	if(startx < 0){
@@ -342,6 +280,52 @@ public class Maze{
 	return false;
     }
 
+    public boolean solve(int m, boolean animate){
+	frontier = new Frontier(m);
+	int count = 1;
+	frontier.add(new Coordinate(startx,starty,count,null));
+	while(frontier.size() > 0){
+	    if(animate){
+		System.out.println(this.toString(animate));
+		System.out.println(frontier);
+		wait(30);
+	    }
+	    Coordinate current = frontier.remove();
+	    int x = current.getx();
+	    int y = current.gety();
+	    count = current.getnum() + 1;
+	    if(checkE(x,y-1,count,current)){
+		return true;
+	    }else{
+		check(x,y-1,count,current);
+	    }	    
+	    if(checkE(x,y+1,count,current)){
+		return true;
+	    }else{
+		check(x,y+1,count,current);
+	    }
+	    if(checkE(x-1,y,count,current)){
+		return true;
+	    }else{
+		check(x-1,y,count,current);
+	    }
+	    if(checkE(x+1,y,count,current)){
+		return true;
+	    }else{
+		check(x+1,y,count,current);
+	    }
+	}   
+	return false;
+    }
+
+    public boolean solveBest(boolean animate){
+	return solve(2,animate);
+    }
+
+    public boolean solveAStar(boolean animate){
+	return solve(3,animate);
+    }
+
     public boolean solveBFS(){
 	return solveBFS(false);
     }
@@ -351,11 +335,11 @@ public class Maze{
     }
 
     public boolean solveBest(){
-	return solveBest(false);
+	return solve(2,false);
     }
     
     public boolean solveAStar(){
-	return solveAStar(false);
+	return solve(3,false);
     }
 
     public int[] solutionCoordinates(){ 
@@ -398,9 +382,9 @@ public class Maze{
 
     public static void main(String[]args){
 	
-	Maze m = new Maze("data1.dat");
+	Maze m = new Maze("data2.dat");
  
-	if(m.solveBest(true)){
+	if(m.solve(0,true)){
 	    System.out.println(m);
 	    System.out.println(Arrays.toString(m.solutionCoordinates()));
 	}else{
