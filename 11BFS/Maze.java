@@ -48,15 +48,71 @@ public class Maze{
 	
     }
 
+    private class Frontier{
+
+	private MyDeque<Coordinate> F;
+	private int mode;
+
+	public Frontier(int m){
+	    mode = m;
+	    F = new MyDeque<Coordinate>(10);
+	}
+
+	public void add(Coordinate c){
+	    if(mode == 0){
+		//DFS
+		F.addLast(c);
+	    }
+	    if(mode == 1){
+		//BFS
+		F.addLast(c);
+	    }
+	    if(mode == 2){
+		//Best
+		F.add(c, distance(c));
+	    }
+	    if(mode == 3){
+		//AStar
+		F.add(c, distance(c)+moves(c));
+	    }
+	}
+		
+	public Coordinate remove(){
+	    if(mode == 0){
+		return F.removeLast();
+	    }
+	    if(mode == 1){
+		return F.removeFirst();
+	    }else{
+		return F.removeSmallest();
+	    }
+	}
+
+	public Coordinate getFirst(){
+	    return F.getFirst();
+	}
+
+	public Coordinate getLast(){
+	    return F.getLast();
+	}
+
+	public int size(){
+	    return F.size();
+	}
+
+	public String toString(){
+	    return F.toString();
+	}
+    }	
+    
     int startx, starty;
     int endx, endy;
     int maxx, maxy;
     char[][] maze;
     int[]moves;
-    MyDeque<Coordinate> frontier;
+    Frontier frontier;
 
     public Maze(String filename){
-	frontier = new MyDeque<Coordinate>(10);
 	startx = -1;
 	starty = -1;
 	String ans = "";
@@ -120,54 +176,55 @@ public class Maze{
 	    System.out.println("No starting point 'S' found in maze.");
 	    return false;
 	}
+	frontier = new Frontier(2);
 	int count = -1;
-	int pr = distance(startx,starty);
 	maze[startx][starty] = ' ';
-	frontier.add(new Coordinate(startx,starty,count,null),pr);
+	frontier.add(new Coordinate(startx,starty,count,null));
 	while(frontier.size()!=0){
 	    if(animate){
 		System.out.println(this.toString(animate));
 		wait(20);
 	    }
-	    System.out.println(frontier.removeSmallest());
-	    Coordinate current = frontier.removeSmallest();
+	    System.out.println(frontier.remove());
+	    Coordinate current = frontier.remove();
 	    //System.out.println(current);
 	    int x = current.getx();
 	    int y = current.gety();
 	    count++;
-	    pr = distance(x, y-1);
-	    if(checkE2(x,y-1,count,current,pr)){
+	    if(checkE(x,y-1,count,current)){
 		return true;
 	    }else{
-		check2(x,y-1,count,current,pr);
+		check(x,y-1,count,current);
 	    }	    
-	    pr = distance(x, y+1);
-	    if(checkE2(x,y+1,count,current,pr)){
+	    if(checkE(x,y+1,count,current)){
 		return true;
 	    }else{
-		check2(x,y+1,count,current,pr);
+		check(x,y+1,count,current);
 	    }
-	    pr = distance(x-1, y);
-	    if(checkE2(x-1,y,count,current,pr)){
+	    if(checkE(x-1,y,count,current)){
 		return true;
 	    }else{
-		check2(x-1,y,count,current,pr);
+		check(x-1,y,count,current);
 	    }
-	    pr = distance(x+1, y);
-	    if(checkE2(x+1,y,count,current,pr)){
+	    if(checkE(x+1,y,count,current)){
 		return true;
 	    }else{
-		check2(x+1,y,count,current,pr);
+		check(x+1,y,count,current);
 	    }
 	}   
 	return false;
     }
 	   
-    public int distance(int x, int y){
-	return Math.abs(endx - x) + Math.abs(endy - y);
+    public int distance(Coordinate c){
+	return Math.abs(endx - c.getx()) + Math.abs(endy - c.gety());
+    }
+
+    public int moves(Coordinate c){
+	return c.getnum();
     }
 
     public boolean solveAStar(boolean animate){
+	frontier = new Frontier(3);
 	return false;
     }
 
@@ -176,9 +233,10 @@ public class Maze{
 	    System.out.println("No starting point 'S' found in maze.");
 	    return false;
 	}
+	frontier = new Frontier(1);
 	int count = -1;
 	maze[startx][starty] = ' ';
-	frontier.addFirst(new Coordinate(startx,starty,count,null));
+	frontier.add(new Coordinate(startx,starty,count,null));
 	while(frontier.size()!=0){
 	    if(animate){
 		System.out.println(this.toString(animate));
@@ -187,7 +245,7 @@ public class Maze{
 	    Coordinate current = frontier.getFirst();
 	    int x = current.getx();
 	    int y = current.gety();
-	    frontier.removeFirst();
+	    frontier.remove();
 	    count++;
 	    if(checkE(x,y-1,count,current)){
 		return true;
@@ -216,7 +274,7 @@ public class Maze{
 
     public boolean checkE(int x, int y, int c, Coordinate prev){
 	if(maze[x][y] == 'E'){
-	    frontier.addLast(new Coordinate(x,y,c,prev)); 
+	    frontier.add(new Coordinate(x,y,c,prev)); 
 	    return true;
 	}
 	return false;
@@ -225,10 +283,11 @@ public class Maze{
     public void check(int x, int y, int c, Coordinate prev){
 	if(maze[x][y] == ' '){
 	    maze[x][y] = 'x';
-	    frontier.addLast(new Coordinate(x,y,c,prev));
+	    frontier.add(new Coordinate(x,y,c,prev));
 	}
     }
 
+    /*
     public boolean checkE2(int x, int y, int c, Coordinate prev, int pr){
 	if(maze[x][y] == 'E'){
 	    frontier.add(new Coordinate(x,y,c,prev),pr); 
@@ -244,7 +303,10 @@ public class Maze{
 	}
     }
 
+    */
+
     public boolean solveDFS(boolean animate){
+	frontier = new Frontier(0);
 	if(startx < 0){
 	    System.out.println("No starting point 'S' found in maze.");
 	    return false;
@@ -257,24 +319,25 @@ public class Maze{
     public boolean solveDFS(int x, int y, int n, boolean animate){
 	if(animate){
 	    System.out.println(this.toString(animate));
+	    System.out.println(frontier);
 	    wait(20);
 	}
 	if(maze[x][y]=='E'){
-	    frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
+	    frontier.add(new Coordinate(x,y,n+1,frontier.getLast()));
 	    return true;
 	}
 	if(maze[x][y]==' '){
 	    maze[x][y]='x';
 	    if(x != startx || y != starty){
-		frontier.addLast(new Coordinate(x,y,n+1,frontier.getLast()));
+		frontier.add(new Coordinate(x,y,n+1,frontier.getLast()));
 	    }else{
-		frontier.addLast(new Coordinate(x,y,n+1,null));
+		frontier.add(new Coordinate(x,y,n+1,null));
 	    }
 	    if(solveDFS(x+1,y,n+1,animate)||solveDFS(x-1,y,n+1,animate)||solveDFS(x,y+1,n+1,animate)||solveDFS(x,y-1,n+1,animate)){
 		return true;
 	    }
 	    maze[x][y]='.';
-	    frontier.removeLast();
+	    frontier.remove();
 	}     
 	return false;
     }
@@ -308,14 +371,14 @@ public class Maze{
 	int i = 1;
 	current = frontier.getLast();	
 	while(current.hasPrev()){	    
-	    moves[moves.length - i] = current.getx();
-	    i++;
 	    moves[moves.length - i] = current.gety();
+	    i++;
+	    moves[moves.length - i] = current.getx();
 	    i++;
 	    current = current.getPrev();
 	}
-	moves[1] = current.getx();
-	moves[0] = current.gety();
+	moves[1] = current.gety();
+	moves[0] = current.getx();
 	return moves;
     }    
     

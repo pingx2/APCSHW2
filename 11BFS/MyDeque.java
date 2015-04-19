@@ -86,24 +86,11 @@ public class MyDeque<T>{
 	    }
 	}
 	T value = (T)que[index];
-	if(head < tail){
-	    for(int i = index - 1; i >= head; i--){
-		que[i+1] = que[i];
-		p[i+1] = p[i];
-	    }
-	    head++;
-	    if(head == que.length){
-		head = 0;
-	    }
-	}else{
-	    for(int i = index + 1; i <= tail; i++){
-		que[i-1] = que[i];
-		p[i-1] = p[i];
-	    }
-	    tail--;
-	    if(tail < 0){
-		tail = que.length-1;
-	    }
+	que[index] = que[head];
+	p[index] = p[head];
+	head++;
+	if(head == que.length){
+	    head = 0;
 	}
 	size--;
 	return value;
@@ -239,6 +226,9 @@ public class MyDeque<T>{
 	
 	System.out.println(q.removeSmallest());
 	System.out.println(q);
+
+	System.out.println(q.removeSmallest());
+
 
 	q.add('D',4);
 	q.add('E',3);
