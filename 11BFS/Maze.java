@@ -384,7 +384,7 @@ public class Maze{
 	
 	Maze m = new Maze("data2.dat");
  
-	if(m.solve(0,true)){
+	if(m.solve(3,true)){
 	    System.out.println(m);
 	    System.out.println(Arrays.toString(m.solutionCoordinates()));
 	}else{
