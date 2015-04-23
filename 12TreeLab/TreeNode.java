@@ -1,4 +1,4 @@
-import java.oi.*;
+import java.io.*;
 import java.util.*;
 
 public class TreeNode<E>{
@@ -6,11 +6,15 @@ public class TreeNode<E>{
     private E parent;
     private TreeNode left, right;
 
-    public TreeNode<E>(E data){
-	parent = data;
+    public TreeNode(E data){
+	setParent(data);
     }
 
-
+    public TreeNode(E data, TreeNode l, TreeNode r){
+	setParent(data);
+	setLeft(l);
+	setRight(r);
+    }
 
     public E getParent(){
 	return parent;
