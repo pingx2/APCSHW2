@@ -105,9 +105,9 @@ public class BTree<E> {
     }
     
     public void traverse( int mode) {
-	if ( mode == PRE_ORDER )
-	    preOrder( root );
-	else if ( mode == IN_ORDER )
+	if (mode == PRE_ORDER)
+	    preOrder(root);
+	else if (mode == IN_ORDER )
 	    inOrder( root );
 	else
 	    postOrder( root );
@@ -121,7 +121,9 @@ public class BTree<E> {
       Prints out the elements in the tree by doing an
       pre-order Traversal
       ====================*/
-    public void preOrder(TreeNode<E> curr) {
+    public void preOrder(TreeNode<E> curr){
+	String s = "";
+	
     }
 
 
