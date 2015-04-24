@@ -7,6 +7,47 @@ public class BTree<E> {
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;
     
+    private class TreeNode<T>{
+	
+	private T parent;
+	private TreeNode left, right;
+	
+	public TreeNode(T data){
+	    parent = data;
+	    left = null;
+	    right = null;
+	}
+	
+	public TreeNode(T data, TreeNode l, TreeNode r){
+	    parent = data;
+	    left = l;
+	    right = r;
+	}
+	
+	public T get(){
+	    return parent;
+	}
+	
+	public void set(T value){
+	    parent = value;
+	}
+
+	public TreeNode getLeft(){
+	    return left;
+	}
+	
+	public void setLeft(TreeNode value){
+	    left = value;
+	}
+	
+	public TreeNode getRight(){
+	    return right;
+	}
+	
+	public void setRight(TreeNode value){
+	    right = value;
+	}
+    }
 
     private TreeNode<E> root;
 
@@ -21,11 +62,7 @@ public class BTree<E> {
       Wrapper method for the recursive add()
       ====================*/     
     public void add(E d) { 
-	TreeNode<E> bn = new TreeNode(d);
-	if(root == null){
-	    root = bn;
-	}else{
-	    //add(root, bn);
+	add(root, new TreeNode<E> d);
     }
     
     /*======== public void add() ==========
@@ -40,11 +77,23 @@ public class BTree<E> {
       added to randomly.
       ====================*/
     private TreeNode<T> add(TreeNode<E> curr, TreeNode<E> bn){
-	if(curr.getLeft() == null){
+	if(curr == null){
+	    curr = bn;
+	}
+	else if(curr.getLeft()==null && curr.getRight==null){
+	    //Random r = new Random();
+	    //int n = 
+	    if(n == 0){
+		curr.setLeft(bn);
+	    }else{
+		curr.setRight(bn);
+	    }
+	}else if(curr.getLeft() == null){
 	    curr.setLeft(bn);
 	}else if(curr.getRight() == null){
 	    curr.setRight(bn);
-	}
+	}else{
+	    
     }
     
     public void traverse( int mode) {

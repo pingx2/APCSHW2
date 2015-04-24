@@ -1,26 +1,26 @@
 import java.io.*;
 import java.util.*;
 
-public class TreeNode<E>{
+public class TreeNode<T>{
     
-    private E parent;
+    private T parent;
     private TreeNode left, right;
 
-    public TreeNode(E data){
-	setParent(data);
+    public TreeNode(T data){
+	parent = data;
     }
 
-    public TreeNode(E data, TreeNode l, TreeNode r){
-	setParent(data);
-	setLeft(l);
-	setRight(r);
+    public TreeNode(T data, TreeNode l, TreeNode r){
+	parent = data;
+	left = l;
+	right = r;
     }
 
-    public E getParent(){
+    public T getParent(){
 	return parent;
     }
 
-    public void setParent(E value){
+    public void setParent(T value){
 	parent = value;
     }
 
