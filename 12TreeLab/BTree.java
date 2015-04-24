@@ -77,12 +77,12 @@ public class BTree<E> {
       added to randomly.
       ====================*/
     private TreeNode<T> add(TreeNode<E> curr, TreeNode<E> bn){
+	//Random r = new Random();
+	//int n = 
 	if(curr == null){
 	    curr = bn;
 	}
 	else if(curr.getLeft()==null && curr.getRight==null){
-	    //Random r = new Random();
-	    //int n = 
 	    if(n == 0){
 		curr.setLeft(bn);
 	    }else{
@@ -93,7 +93,15 @@ public class BTree<E> {
 	}else if(curr.getRight() == null){
 	    curr.setRight(bn);
 	}else{
-	    
+	    TreeNode<E> temp = curr.get();
+	    if(n == 0){
+		curr.setLeft(bn);
+		add(curr,temp);
+	    }else{
+		curr.setRight(bn);
+		add(curr,temp);
+	    }
+	}
     }
     
     public void traverse( int mode) {
@@ -113,7 +121,7 @@ public class BTree<E> {
       Prints out the elements in the tree by doing an
       pre-order Traversal
       ====================*/
-    public void preOrder( TreeNode<E> curr ) {
+    public void preOrder(TreeNode<E> curr) {
     }
 
 
@@ -124,7 +132,7 @@ public class BTree<E> {
       Prints out the elements in the tree by doing an
       in-order Traversal
       ====================*/
-    public void inOrder( TreeNode<E> curr ) {
+    public void inOrder(TreeNode<E> curr) {
     }
 
     /*======== public void postOrder() ==========
@@ -135,7 +143,7 @@ public class BTree<E> {
       post-order Traversal    
 
       ====================*/
-    public void postOrder( TreeNode<E> curr ) {
+    public void postOrder(TreeNode<E> curr) {
     }
     
     /*======== public int getHeight()) ==========
@@ -145,14 +153,14 @@ public class BTree<E> {
       Wrapper for the recursive getHeight method
       ====================*/
     public int getHeight() {
-	return getHeight( root );
+	return getHeight(root);
     }
     /*======== public int getHeight() ==========
       Inputs:   TreeNode<E> curr  
       Returns:  The height of the tree rooted at node curr
       
       ====================*/
-    public int getHeight( TreeNode<E> curr ) {
+    public int getHeight(TreeNode<E> curr) {
 	return -1;
     }
 
@@ -164,7 +172,7 @@ public class BTree<E> {
                given level, ordered left -> right
       
       ====================*/
-    public String getLevel( TreeNode<E> curr, int level, int currLevel ) {
+    public String getLevel(TreeNode<E> curr, int level, int currLevel) {
 	return "";
     }
     
@@ -194,7 +202,7 @@ public class BTree<E> {
     }
 	
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
 
 	BTree<Integer> t = new BTree<Integer>();
 
