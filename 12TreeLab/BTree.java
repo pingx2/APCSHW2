@@ -50,10 +50,11 @@ public class BTree<E> {
     }
 
     private TreeNode<E> root;
+    private Random r;
 
     public BTree() {
 	root = null;
-	Random r = new Random();
+	r = new Random();
     }
 
     /*======== public void add() ==========
@@ -102,13 +103,13 @@ public class BTree<E> {
 	}
     }
     
-    public void traverse( int mode) {
+    public void traverse(int mode) {
 	if (mode == PRE_ORDER)
 	    preOrder(root);
-	else if (mode == IN_ORDER )
-	    inOrder( root );
+	else if (mode == IN_ORDER)
+	    inOrder(root);
 	else
-	    postOrder( root );
+	    postOrder(root);
 	System.out.println();
     }
 
@@ -121,13 +122,15 @@ public class BTree<E> {
       ====================*/
     public void preOrder(TreeNode<E> curr){
 	//VTT
-	if(curr == null){
-	}else if(curr.getLeft() == null && curr.getRight() == null){
-	    System.out.println(curr.get());
-	}else{
-	    System.out.println(curr.get());
-	    preOrder(curr.getLeft());
-	    preOrder(curr.getRight());
+	if(curr != null){
+	    if(curr.getLeft() == null && curr.getRight() == null){
+		System.out.println(curr.get());
+	    }else{
+		System.out.println(curr.get());
+		preOrder(curr.getLeft());
+		preOrder(curr.getRight());
+	    }
+	}
     }
 
 
@@ -140,13 +143,14 @@ public class BTree<E> {
       ====================*/
     public void inOrder(TreeNode<E> curr){
 	//TVT
-	if(curr == null){
-	}else if(curr.getLeft() == null && curr.getRight() == null){
-	    System.out.println(curr.get());
-	}else{
-	    inOrder(curr.getLeft());
-	    System.out.println(curr.get());
-	    inOrder(curr.getRight());
+	if(curr != null){
+	    if(curr.getLeft() == null && curr.getRight() == null){
+		System.out.println(curr.get());
+	    }else{
+		inOrder(curr.getLeft());
+		System.out.println(curr.get());
+		inOrder(curr.getRight());
+	    }
 	}
     }
 
@@ -161,14 +165,14 @@ public class BTree<E> {
       ====================*/
     public void postOrder(TreeNode<E> curr){
 	//TTV
-	if(curr == null){
-	}else if(curr.getLeft() == null && curr.getRight() == null){
-	    System.out.println(curr.get());
-	}else{
-	    postOrder(curr.getLeft());
-	    postOrder(curr.getRight());
-	    System.out.println(curr.get());
-
+	if(curr != null){
+	    if(curr.getLeft() == null && curr.getRight() == null){
+		System.out.println(curr.get());
+	    }else{
+		postOrder(curr.getLeft());
+		postOrder(curr.getRight());
+		System.out.println(curr.get());
+	    }
 	}
     }
     
@@ -187,7 +191,13 @@ public class BTree<E> {
       
       ====================*/
     public int getHeight(TreeNode<E> curr) {
-	return -1;
+	if(curr == null){
+	    return 0;
+	}else if(curr.getLeft() == null && curr.getRight() == null){
+	    return 1;
+	}else{
+	    return 1 + Math.max(getHeight(curr.getLeft()),getHeight(curr.getRight()));
+	}
     }
 
     /*======== public String getLevel() ==========
