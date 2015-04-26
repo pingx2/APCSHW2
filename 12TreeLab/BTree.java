@@ -10,7 +10,7 @@ public class BTree<E> {
     private class TreeNode<T>{
 	
 	private T parent;
-	private TreeNode left, right;
+	private TreeNode<T> left, right;
 	
 	public TreeNode(T data){
 	    parent = data;
@@ -18,7 +18,7 @@ public class BTree<E> {
 	    right = null;
 	}
 	
-	public TreeNode(T data, TreeNode l, TreeNode r){
+	public TreeNode(T data, TreeNode<T> l, TreeNode<T> r){
 	    parent = data;
 	    left = l;
 	    right = r;
@@ -32,19 +32,19 @@ public class BTree<E> {
 	    parent = value;
 	}
 
-	public TreeNode getLeft(){
+	public TreeNode<T> getLeft(){
 	    return left;
 	}
 	
-	public void setLeft(TreeNode value){
+	public void setLeft(TreeNode<T> value){
 	    left = value;
 	}
 	
-	public TreeNode getRight(){
+	public TreeNode<T> getRight(){
 	    return right;
 	}
 	
-	public void setRight(TreeNode value){
+	public void setRight(TreeNod<T>e value){
 	    right = value;
 	}
     }
@@ -53,6 +53,7 @@ public class BTree<E> {
 
     public BTree() {
 	root = null;
+	Random r = new Random();
     }
 
     /*======== public void add() ==========
@@ -61,8 +62,12 @@ public class BTree<E> {
       
       Wrapper method for the recursive add()
       ====================*/     
-    public void add(E d) { 
-	add(root, new TreeNode<E> d);
+    public void add(E d){
+	if(root == null){
+	    root = new TreeNode<E>(d);
+	}else{ 
+	    add(root, new TreeNode<E> d);
+	}
     }
     
     /*======== public void add() ==========
@@ -77,12 +82,8 @@ public class BTree<E> {
       added to randomly.
       ====================*/
     private TreeNode<T> add(TreeNode<E> curr, TreeNode<E> bn){
-	//Random r = new Random();
-	//int n = 
-	if(curr == null){
-	    curr = bn;
-	}
-	else if(curr.getLeft()==null && curr.getRight==null){
+	int n = r.nextInt(2);
+	if(curr.getLeft()==null && curr.getRight==null){
 	    if(n == 0){
 		curr.setLeft(bn);
 	    }else{
@@ -93,13 +94,10 @@ public class BTree<E> {
 	}else if(curr.getRight() == null){
 	    curr.setRight(bn);
 	}else{
-	    TreeNode<E> temp = curr.get();
 	    if(n == 0){
-		curr.setLeft(bn);
-		add(curr,temp);
+		add(curr.getLeft(),bn);
 	    }else{
-		curr.setRight(bn);
-		add(curr,temp);
+		add(curr.getRight(),bn);
 	    }
 	}
     }
@@ -122,8 +120,14 @@ public class BTree<E> {
       pre-order Traversal
       ====================*/
     public void preOrder(TreeNode<E> curr){
-	String s = "";
-	
+	//VTT
+	if(curr == null){
+	}else if(curr.getLeft() == null && curr.getRight() == null){
+	    System.out.println(curr.get());
+	}else{
+	    System.out.println(curr.get());
+	    preOrder(curr.getLeft());
+	    preOrder(curr.getRight());
     }
 
 
@@ -134,8 +138,18 @@ public class BTree<E> {
       Prints out the elements in the tree by doing an
       in-order Traversal
       ====================*/
-    public void inOrder(TreeNode<E> curr) {
+    public void inOrder(TreeNode<E> curr){
+	//TVT
+	if(curr == null){
+	}else if(curr.getLeft() == null && curr.getRight() == null){
+	    System.out.println(curr.get());
+	}else{
+	    inOrder(curr.getLeft());
+	    System.out.println(curr.get());
+	    inOrder(curr.getRight());
+	}
     }
+
 
     /*======== public void postOrder() ==========
       Inputs:   TreeNode<E> curr  
@@ -145,7 +159,17 @@ public class BTree<E> {
       post-order Traversal    
 
       ====================*/
-    public void postOrder(TreeNode<E> curr) {
+    public void postOrder(TreeNode<E> curr){
+	//TTV
+	if(curr == null){
+	}else if(curr.getLeft() == null && curr.getRight() == null){
+	    System.out.println(curr.get());
+	}else{
+	    postOrder(curr.getLeft());
+	    postOrder(curr.getRight());
+	    System.out.println(curr.get());
+
+	}
     }
     
     /*======== public int getHeight()) ==========
