@@ -247,7 +247,11 @@ public class BTree<E> {
 
       ====================*/
     public String toString() {
-	return "";
+	String result = "";
+	for(int i = 0; i < getHeight(root); i++){
+	    result += getLevel(root,i,0) + "\n";
+	}
+	return result;
     }
 	
 
