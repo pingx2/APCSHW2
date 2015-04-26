@@ -193,11 +193,17 @@ public class BTree<E> {
     public int getHeight(TreeNode<E> curr) {
 	if(curr == null){
 	    return 0;
-	}else if(curr.getLeft() == null && curr.getRight() == null){
-	    return 1;
-	}else{
-	    return 1 + Math.max(getHeight(curr.getLeft()),getHeight(curr.getRight()));
 	}
+	if(curr.getLeft() == null && curr.getRight() == null){
+	    return 1;
+	}
+	if(curr.getLeft() == null){
+	    return 1 + getHeight(curr.getRight());
+	}
+	if(curr.getRight() == null){
+	    return 1 + getHeight(curr.getLeft());
+	}
+	return 1 + Math.max(getHeight(curr.getLeft()),getHeight(curr.getRight()));
     }
 
     /*======== public String getLevel() ==========
@@ -209,8 +215,15 @@ public class BTree<E> {
       
       ====================*/
     public String getLevel(TreeNode<E> curr, int level, int currLevel) {
-	return "";
+	if(curr == null){
+	    return "";
+	}
+	if(level == currLevel){
+	    return curr.get() + " ";
+	}
+	return getLevel(curr.getLeft(),level,currLevel+1) + getLevel(curr.getRight(),level,currLevel+1);
     }
+	
     
     /*======== public String toString()) ==========
       Inputs:   
