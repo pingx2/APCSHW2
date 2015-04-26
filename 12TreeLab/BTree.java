@@ -44,7 +44,7 @@ public class BTree<E> {
 	    return right;
 	}
 	
-	public void setRight(TreeNod<T>e value){
+	public void setRight(TreeNode<T> value){
 	    right = value;
 	}
     }
@@ -67,7 +67,7 @@ public class BTree<E> {
 	if(root == null){
 	    root = new TreeNode<E>(d);
 	}else{ 
-	    add(root, new TreeNode<E> d);
+	    add(root, new TreeNode<E>(d));
 	}
     }
     
@@ -82,9 +82,9 @@ public class BTree<E> {
       one of curr's children. Choose the child to be
       added to randomly.
       ====================*/
-    private TreeNode<T> add(TreeNode<E> curr, TreeNode<E> bn){
+    private void add(TreeNode<E> curr, TreeNode<E> bn){
 	int n = r.nextInt(2);
-	if(curr.getLeft()==null && curr.getRight==null){
+	if(curr.getLeft()==null && curr.getRight()==null){
 	    if(n == 0){
 		curr.setLeft(bn);
 	    }else{
