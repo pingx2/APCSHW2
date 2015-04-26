@@ -254,6 +254,9 @@ public class BTree<E> {
 	return result;
     }
 	
+    public String name(){
+	return "zeng.pingping";
+    }
 
     public static void main(String[] args) {
 
