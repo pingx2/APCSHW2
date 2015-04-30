@@ -48,6 +48,8 @@ public class BSTree <T extends Comparable> {
 	    return value.getLeft() == null & value.getRight() == null;
 	}
 
+	public int compareTo(
+
     }
 
     public BSTreeNode<T> root;
@@ -81,8 +83,18 @@ public class BSTree <T extends Comparable> {
       Add t to the correct place in the tree rooted at curr.
       ====================*/
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t) {
-	return null;
+	if(curr == null){
+	    return t;
+	}else if(curr.getValue().compareTo(){
+	    curr.setLeft(add(curr.getLeft(),t));
+	}else if(/*right side*/){
+	    curr.setRight(add(curr.getRight(),t));
+	}else if(/*equal*/){
+	    
+	}
+	
     }
+	      
 
     /*======== public void remove() ==========
       Inputs:   T c  
