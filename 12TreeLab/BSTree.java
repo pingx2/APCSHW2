@@ -59,14 +59,14 @@ public class BSTree <T extends Comparable> {
 
     public BSTreeNode<T> root;
 
-    public BSTree() {
+    public BSTree(){
 	root = null;
     }
 
-    public boolean isEmpty() {
+    public boolean isEmpty(){
 	return root == null;
     }
-    public boolean isLeaf( BSTreeNode<T> t ) {
+    public boolean isLeaf(BSTreeNode<T> t){
 	return (t.getLeft() == null && t.getRight() == null);
     }
 
@@ -90,7 +90,7 @@ public class BSTree <T extends Comparable> {
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t) {
 	if(curr == null){
 	    return t;
-	}else if(t.getData().compareTo(curr.getData())<0){
+	}else if(t.getData().compareTo(curr.getData()) < 0){
 	    curr.setLeft(add(curr.getLeft(),t));
 	}else{
 	    curr.setRight(add(curr.getRight(),t));
@@ -128,6 +128,11 @@ public class BSTree <T extends Comparable> {
 	    }else{//both are full
 
 	    }
+	//recursive stuff
+	}else if(c.getData().compareTo(curr.getData()) < 0){
+	    curr.setLeft(remove(curr.getLeft(),c));
+	}else{
+	    curr.setRight(remove(curr.getRight(),c));
 	}
 	return curr;
     }
