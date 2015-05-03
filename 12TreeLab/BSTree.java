@@ -10,7 +10,8 @@ public class BSTree <T extends Comparable> {
 	
 	public BSTreeNode(){
 	    root = null;
-	
+	}
+
 	public BSTreeNode(T data){
 	    root = data;
 	    left = null;
@@ -126,9 +127,14 @@ public class BSTree <T extends Comparable> {
 	    }else if(curr.getRight() == null){
 		return curr.getLeft();
 	    }else{//both are full
-
+		BSTreeNode<T> temp = curr.getLeft();
+		while(temp.getRight() != null){
+		    temp.setData(temp.getRight());
+		}
+		temp.setRight(curr.getRight());
+		return curr.getRight();
 	    }
-	//recursive stuff
+	    //recursive stuff
 	}else if(c.getData().compareTo(curr.getData()) < 0){
 	    curr.setLeft(remove(curr.getLeft(),c));
 	}else{
