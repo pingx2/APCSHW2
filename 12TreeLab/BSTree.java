@@ -107,7 +107,9 @@ public class BSTree <T extends Comparable> {
       Wrapper for the recursive remove method
       ====================*/
     public void remove(T c){
-	root = remove(root, c);
+	if(!isEmpty()){
+	    root = remove(root, c);
+	}
     }
 
     /*======== public BSTreeNode<T> remove() ==========
@@ -132,7 +134,7 @@ public class BSTree <T extends Comparable> {
 		    temp = temp.getRight();
 		}
 		temp.setRight(curr.getRight());
-		return curr.getRight();
+		return curr.getLeft();
 	    }
 	    //recursive stuff
 	}else if(c.compareTo(curr.getData()) < 0){
@@ -287,9 +289,19 @@ public class BSTree <T extends Comparable> {
 
 	BSTree tree = new BSTree<Integer>();
 	
-	tree.add(4);
-	tree.add(3);
+	tree.remove(10);
+
 	tree.add(5);
+	tree.add(3);
+	tree.add(1);
+	tree.add(7);
+	tree.add(6);
+	tree.add(8);
+
+
+
+	//tree.remove(10);
+
 
 	System.out.println(tree);
 
