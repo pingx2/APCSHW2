@@ -5,27 +5,30 @@ public class BSTree <T extends Comparable> {
 
     private class BSTreeNode <T extends Comparable> {
 	
-	private T parent;
+	private T root;
 	private BSTreeNode<T> left, right;
 	
+	public BSTreeNode(){
+	    root = null;
+	
 	public BSTreeNode(T data){
-	    parent = data;
+	    root = data;
 	    left = null;
 	    right = null;
 	}
 	
 	public BSTreeNode(T data, BSTreeNode<T> l, BSTreeNode<T> r){
-	    parent = data;
+	    root = data;
 	    left = l;
 	    right = r;
 	}
 	
 	public T getData(){
-	    return parent;
+	    return root;
 	}
 	
 	public void setData(T value){
-	    parent = value;
+	    root = value;
 	}
 
 	public BSTreeNode<T> getLeft(){
@@ -45,7 +48,7 @@ public class BSTree <T extends Comparable> {
 	}
  
 	public boolean isLeaf(BSTreeNode<T> value){
-	    return value.getLeft() == null & value.getRight() == null;
+	    return value.getLeft() == null && value.getRight() == null;
 	}
 
 	public String toString(){
@@ -73,8 +76,8 @@ public class BSTree <T extends Comparable> {
 
       Wrapper for the recursive add method
       ====================*/
-    public void add( T c ) {
-	root = add( root, new BSTreeNode<T>(c) );
+    public void add(T c){
+	root = add(root, new BSTreeNode<T>(c));
     }
 
     /*======== public BSTreeNode<T> add() ==========
@@ -102,8 +105,8 @@ public class BSTree <T extends Comparable> {
       
       Wrapper for the recursive remove method
       ====================*/
-    public void remove( T c ) {
-	root = remove( root, c );
+    public void remove(T c){
+	root = remove(root, c);
     }
 
     /*======== public BSTreeNode<T> remove() ==========
@@ -114,8 +117,19 @@ public class BSTree <T extends Comparable> {
       Should remove the value c from the tree rooted at
       curr, if it exists.
       ====================*/
-    private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
-	return null;
+    private BSTreeNode<T> remove(BSTreeNode<T> curr, T c){
+	if(curr.getData() == c){
+	    if(isLeaf(curr)){
+		return null;
+	    }else if(curr.getLeft() == null){
+		return curr.getRight();
+	    }else if(curr.getRight() == null){
+		return curr.getLeft();
+	    }else{//both are full
+
+	    }
+	}
+	return curr;
     }
 
 
@@ -147,9 +161,8 @@ public class BSTree <T extends Comparable> {
 
     /**
      * stolen from: Dennis Yatunin
-     * (no not really stolen from, donated by)
      */
-
+    
     public int getHeight(){
 	return getHeight(root);
     }
