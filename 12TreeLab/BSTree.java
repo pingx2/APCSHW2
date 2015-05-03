@@ -129,13 +129,13 @@ public class BSTree <T extends Comparable> {
 	    }else{//both are full
 		BSTreeNode<T> temp = curr.getLeft();
 		while(temp.getRight() != null){
-		    temp.setData(temp.getRight());
+		    temp = temp.getRight();
 		}
 		temp.setRight(curr.getRight());
 		return curr.getRight();
 	    }
 	    //recursive stuff
-	}else if(c.getData().compareTo(curr.getData()) < 0){
+	}else if(c.compareTo(curr.getData()) < 0){
 	    curr.setLeft(remove(curr.getLeft(),c));
 	}else{
 	    curr.setRight(remove(curr.getRight(),c));
