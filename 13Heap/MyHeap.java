@@ -79,12 +79,39 @@ public class MyHeap{
 	}
     }
     
+    private int getHeight(){
+	int height = 0;
+	int n = heap[0];
+	while(n != 0){
+	    num = num/2;
+	    height++;
+	}
+	return height;
+    }
+
     public String toString(){
-	return "";
+	String res = "";
+	for(int i = 1; i <= data[0]; i++){
+	    s += heap[i] + " ";
+	    
+	}
+	return res;
     }
     
     public String name(){
 	return "pingping.zeng";
     }
 		   
+    public static void main(String[]args){
+	
+	MyHeap h = new MyHeap();
+
+	h.add(5);
+	h.add(3);
+	h.add(7);
+	h.add(0);
+
+	System.out.println(h);
+
+
 }
