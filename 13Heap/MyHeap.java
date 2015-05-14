@@ -21,7 +21,7 @@ public class MyHeap{
       	resize();
     }
 
-    private void swap(int index){
+    private void addSwap(int index){
 	if(index != 1 && compare(heap[index/2],heap[index])){
 	    int temp = heap[index];
 	    data[index] = data[index/2];
@@ -40,13 +40,30 @@ public class MyHeap{
     }
     
     public int remove(){
-	if(heap
+	if(heap[0] == 0){
+	    throw new NoSuchElementException();
+	}
 	int value = heap[1];
 	heap[1] = heap[heap[0]];
-	heap[heap[0]] = 0;
 	heap[0] -= 1;
-	swap(heap[1]);
+	swap(1);
 	return value;
+    }
+
+    private void removeSwap(int index){
+	if(index < heap[0] && (compare(heap[index],heap[index*2)) ||
+			       compare(heap[index],heap[index*2+1]))){
+	    int temp = heap[index];
+	    if(compare(heap[index*2],heap[index*2+1])){
+		heap[index] = heap[index*2+1];
+		heap[index*2+1] = temp;
+		removeSwap(index*2+1);
+	    }else{
+		heap[index] = heap[index*2];
+		heap[index*2] = temp;
+		removeSwap(index*2);
+	    }
+	}
     }
 
     public int peek(){
@@ -57,7 +74,9 @@ public class MyHeap{
     }
 
     public void resize(){
-
+	if(heap[0] == heap.length - 1){
+	    heap = Arrays.copyOf(heap, heap[0] * 2);
+	}
     }
     
     public String toString(){
