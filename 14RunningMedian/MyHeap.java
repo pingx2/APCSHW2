@@ -73,6 +73,10 @@ public class MyHeap{
 	return heap[1];
     }
 
+    public int size(){
+	return heap[0];
+    }
+
     public void resize(){
 	if(heap[0] == heap.length - 1){
 	    heap = Arrays.copyOf(heap, heap[0] * 2);
