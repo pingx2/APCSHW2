@@ -17,16 +17,16 @@ public class MyHeap{
     public void add(int value){
 	heap[heap[0]+1] = value;
  	heap[0] += 1;
-	swap(heap[0]); 
+	addSwap(heap[0]); 
       	resize();
     }
 
     private void addSwap(int index){
 	if(index != 1 && compare(heap[index/2],heap[index])){
 	    int temp = heap[index];
-	    data[index] = data[index/2];
-	    data[index/2] = temp;
-	    swap(index/2);
+	    heap[index] = heap[index/2];
+	    heap[index/2] = temp;
+	    addSwap(index/2);
 	}
     }
     
@@ -46,12 +46,12 @@ public class MyHeap{
 	int value = heap[1];
 	heap[1] = heap[heap[0]];
 	heap[0] -= 1;
-	swap(1);
+	removeSwap(1);
 	return value;
     }
 
     private void removeSwap(int index){
-	if(index < heap[0] && (compare(heap[index],heap[index*2)) ||
+	if(index < heap[0] && (compare(heap[index],heap[index*2]) ||
 			       compare(heap[index],heap[index*2+1]))){
 	    int temp = heap[index];
 	    if(compare(heap[index*2],heap[index*2+1])){
@@ -83,7 +83,7 @@ public class MyHeap{
 	int height = 0;
 	int n = heap[0];
 	while(n != 0){
-	    num = num/2;
+	    n = n/2;
 	    height++;
 	}
 	return height;
@@ -91,8 +91,8 @@ public class MyHeap{
 
     public String toString(){
 	String res = "";
-	for(int i = 1; i <= data[0]; i++){
-	    s += heap[i] + " ";
+	for(int i = 1; i <= heap[0]; i++){
+	    res += heap[i] + " ";
 	    
 	}
 	return res;
@@ -104,14 +104,17 @@ public class MyHeap{
 		   
     public static void main(String[]args){
 	
-	MyHeap h = new MyHeap();
+	MyHeap h = new MyHeap(false);
 
 	h.add(5);
 	h.add(3);
 	h.add(7);
 	h.add(0);
+	h.add(30);
+
+	h.remove();
 
 	System.out.println(h);
-
+    }
 
 }
