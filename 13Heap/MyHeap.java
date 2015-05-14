@@ -3,11 +3,10 @@ import java.util.*;
 public class MyHeap{
 
     private int[] heap;
-    private boolean isMax = true;
+    private boolean isMax;
 
     public MyHeap(){
-	heap = new int[10];
-	
+	this(true);
     }
 
     public MyHeap(boolean m){
@@ -15,54 +14,58 @@ public class MyHeap{
 	isMax = m;
     }
 
-    public void add(int n){
-	resize();
-	if(heap[0] == 0){
-	    heap[1] = n;
-	    heap[0] = 1;
-	}else{
-	    heap[heap[0]+1] = n;
-	    heap[0] = heap[0] + 1;
+    public void add(int value){
+	heap[heap[0]+1] = value;
+ 	heap[0] += 1;
+	swap(heap[0]); 
+      	resize();
+    }
+
+    private void swap(int index){
+	if(index != 1 && compare(heap[index/2],heap[index])){
+	    int temp = heap[index];
+	    data[index] = data[index/2];
+	    data[index/2] = temp;
+	    swap(index/2);
 	}
-	//push value up
-	for(int i = heap[heap[0]]; i < 0; i/2){
-	    if(compare(
+    }
+    
+
+    private boolean compare(int parent, int child){
+	if(isMax){
+	    return parent < child;
+	}else{
+	    return parent > child;
+	}
     }
     
     public int remove(){
-	int val = heap[1];
+	if(heap
+	int value = heap[1];
 	heap[1] = heap[heap[0]];
 	heap[heap[0]] = 0;
-	heap[0] = heap[0] - 1;
-
-	//push value down
-	return val;
-    }
-
-    private boolean compare(int a, int b){
-	if(isMax){
-	
-	}else{
-
-	}
-   
-	return false;
+	heap[0] -= 1;
+	swap(heap[1]);
+	return value;
     }
 
     public int peek(){
+	if(heap[0] == 0){
+	    throw new NoSuchElementException();
+	}
 	return heap[1];
     }
 
     public void resize(){
 
     }
-
-    private String getLevel(){
-
-    }
-
+    
     public String toString(){
 	return "";
     }
-
+    
+    public String name(){
+	return "pingping.zeng";
+    }
+		   
 }
