@@ -3,7 +3,7 @@ import java.util.*;
 public class RunningMedian{
 
     MyHeap min, max;
-    ArrayList<Integer> current;
+    int current;
 
     public RunningMedian(){
 	max = new MyHeap();
@@ -12,9 +12,10 @@ public class RunningMedian{
     }
 
     public void add(int value){
-	current.add(value);
-	if(current.size() == 3){
-	    if( max.peek() > value){
+	if(max.size() == 0 && min.size() == 0){
+	    current = value;
+	}else if(max.peek() > value){
+	    
 	    
 	    
     }
