@@ -2,26 +2,32 @@ import java.util.*;
 
 public class RunningMedian{
 
-    MyHeap min, max;
-    int current;
+    private MyHeap max, min;
+    private int median;
 
     public RunningMedian(){
 	max = new MyHeap();
 	min = new MyHeap(false);
-        current = new ArrayList<Integer>();
     }
 
     public void add(int value){
-	if(max.size() == 0 && min.size() == 0){
-	    current = value;
-	}else if(max.peek() > value){
-	    
+	if(getMedian() < value){
+	    min.add(value);
+	}else if(getMedian() > value){
+	    max.add(value);
 	    
 	    
     }
 
     public double getMedian(){
-	return 0.0;
+	if(max.size() == min.size()){
+	    return (max.peek() + min.peek()) / 2;
+	}else if(max.size() > min.size()){
+	    return max.peek();
+	}else if(min.size() > max.size()){
+	    return min.peek();
+	}
     }
+	 
 
 }

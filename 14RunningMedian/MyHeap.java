@@ -10,7 +10,7 @@ public class MyHeap{
     }
 
     public MyHeap(boolean m){
-	heap = new int[10];
+	heap = new int[5];
 	isMax = m;
     }
 
@@ -101,6 +101,20 @@ public class MyHeap{
 	}
 	return res;
     }
+
+    /*
+    public String toStringHeap(){
+	String res = "";
+	//getLeft i*2
+	//getRight i*2+1
+	//getParent i/2
+	int count = heap[0];
+	while(count > 0){
+	    
+	}
+    }	    
+    
+    */
     
     public String name(){
 	return "pingping.zeng";
@@ -117,6 +131,10 @@ public class MyHeap{
 	h.add(30);
 
 	h.remove();
+
+	h.add(21);
+	h.add(56);
+	h.add(100);
 
 	System.out.println(h);
     }
