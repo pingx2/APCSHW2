@@ -38,6 +38,10 @@ public class RunningMedian{
 	    return (max.peek() + min.peek()) / 2.0;
 	}
     }
+
+    public String name(){
+	return "pingping.zeng";
+    }
 	 
     public static void main(String[]args){
 	
