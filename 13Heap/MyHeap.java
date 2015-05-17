@@ -11,6 +11,7 @@ public class MyHeap{
 
     public MyHeap(boolean m){
 	heap = new int[10];
+	heap[0] = 0;
 	isMax = m;
     }
 
@@ -51,7 +52,7 @@ public class MyHeap{
     }
 
     private void removeSwap(int index){
-	if(index < heap[0] && (compare(heap[index],heap[index*2]) ||
+	if(index*2 < heap[0] && (compare(heap[index],heap[index*2]) ||
 			       compare(heap[index],heap[index*2+1]))){
 	    int temp = heap[index];
 	    if(compare(heap[index*2],heap[index*2+1])){
@@ -71,6 +72,10 @@ public class MyHeap{
 	    throw new NoSuchElementException();
 	}
 	return heap[1];
+    }
+
+    public int size(){
+	return heap[0];
     }
 
     public void resize(){
@@ -97,6 +102,20 @@ public class MyHeap{
 	}
 	return res;
     }
+
+    /*
+    public String toStringHeap(){
+	String res = "";
+	//getLeft i*2
+	//getRight i*2+1
+	//getParent i/2
+	int count = heap[0];
+	while(count > 0){
+	    
+	}
+    }	    
+    
+    */
     
     public String name(){
 	return "pingping.zeng";
@@ -106,13 +125,25 @@ public class MyHeap{
 	
 	MyHeap h = new MyHeap(false);
 
-	h.add(5);
+	h.add(1);
+	h.add(11);
 	h.add(3);
+	h.add(4);
+	h.add(10);
+	h.add(6);
 	h.add(7);
-	h.add(0);
-	h.add(30);
+	h.add(8);
+	h.add(9);
+
+	System.out.println(h);
+
+	
 
 	h.remove();
+
+
+	System.out.println(h.remove());
+
 
 	System.out.println(h);
     }

@@ -284,7 +284,11 @@ public class BSTree <T extends Comparable> {
 				
 	return result;
     }
-   
+
+    public String name(){
+	return "zeng.pingping";
+    }   
+
     public static void main(String[] args){
 
 	BSTree tree = new BSTree<Integer>();

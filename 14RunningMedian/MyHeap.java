@@ -10,7 +10,8 @@ public class MyHeap{
     }
 
     public MyHeap(boolean m){
-	heap = new int[5];
+	heap = new int[10];
+	heap[0] = 0;
 	isMax = m;
     }
 
@@ -51,7 +52,7 @@ public class MyHeap{
     }
 
     private void removeSwap(int index){
-	if(index < heap[0] && (compare(heap[index],heap[index*2]) ||
+	if(index*2 < heap[0] && (compare(heap[index],heap[index*2]) ||
 			       compare(heap[index],heap[index*2+1]))){
 	    int temp = heap[index];
 	    if(compare(heap[index*2],heap[index*2+1])){
@@ -124,17 +125,25 @@ public class MyHeap{
 	
 	MyHeap h = new MyHeap(false);
 
-	h.add(5);
+	h.add(1);
+	h.add(11);
 	h.add(3);
+	h.add(4);
+	h.add(10);
+	h.add(6);
 	h.add(7);
-	h.add(0);
-	h.add(30);
+	h.add(8);
+	h.add(9);
+
+	System.out.println(h);
+
+	
 
 	h.remove();
 
-	h.add(21);
-	h.add(56);
-	h.add(100);
+
+	System.out.println(h.remove());
+
 
 	System.out.println(h);
     }
