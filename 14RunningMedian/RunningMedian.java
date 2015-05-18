@@ -2,7 +2,7 @@ import java.util.*;
 
 public class RunningMedian{
 
-    public MyHeap max, min;
+    private MyHeap max, min;
 
     public RunningMedian(){
 	max = new MyHeap();
@@ -35,17 +35,17 @@ public class RunningMedian{
 	    return (max.peek() + min.peek()) / 2.0;
 	}
     }
-
+    
     public String name(){
 	return "pingping.zeng";
     }
-	 
+    
     public static void main(String[]args){
 	
 	RunningMedian m = new RunningMedian();
 
 	m.add(20);
-
+	
 	m.add(-3);
 	m.add(-1);
 	m.add(5);
@@ -54,9 +54,10 @@ public class RunningMedian{
 	m.add(8);
 	m.add(9);
 	m.add(10);
+
 	m.add(11);
 	m.add(12);
-	//m.add(14);
+	m.add(14);
 
 
 	System.out.println(m.min.toString());

@@ -52,7 +52,7 @@ public class MyHeap{
     }
 
     private void removeSwap(int index){
-	if(index*2 < heap[0] && (compare(heap[index],heap[index*2]) ||
+	if(index*2 - 1 < heap[0] && (compare(heap[index],heap[index*2]) ||
 			       compare(heap[index],heap[index*2+1]))){
 	    int temp = heap[index];
 	    if(compare(heap[index*2],heap[index*2+1])){
@@ -113,9 +113,9 @@ public class MyHeap{
 
 	h.add(20);
 
-	h.add(8);
 	h.add(9);
 	h.add(10);
+	h.add(8);
 	h.add(11);
 	h.add(12);
 
