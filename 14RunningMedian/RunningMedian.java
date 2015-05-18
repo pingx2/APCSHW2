@@ -3,10 +3,9 @@ import java.util.*;
 public class RunningMedian{
 
     public MyHeap max, min;
-    //private int median;
 
     public RunningMedian(){
-	max = new MyHeap(true);
+	max = new MyHeap();
 	min = new MyHeap(false);
     }
 
@@ -28,9 +27,7 @@ public class RunningMedian{
     }
     
     public double getMedian(){
-	if(max.size() == 0 && min.size() == 0){
-	    throw new IllegalStateException();
-	}else if(max.size() > min.size()){
+	if(max.size() > min.size()){
 	    return max.peek();
 	}else if(max.size() < min.size()){
 	    return min.peek();
@@ -47,6 +44,10 @@ public class RunningMedian{
 	
 	RunningMedian m = new RunningMedian();
 
+	m.add(20);
+
+	m.add(-3);
+	m.add(-1);
 	m.add(5);
 	m.add(6);
 	m.add(7);
@@ -55,14 +56,11 @@ public class RunningMedian{
 	m.add(10);
 	m.add(11);
 	m.add(12);
+	//m.add(14);
 
-	System.out.println(m.max.size());
-	System.out.println(m.min.size());
 
-	System.out.println(m.max.toString());
 	System.out.println(m.min.toString());
-
-
+	System.out.println(m.max.toString());
 
 	System.out.println(m.getMedian());
     

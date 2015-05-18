@@ -102,20 +102,6 @@ public class MyHeap{
 	}
 	return res;
     }
-
-    /*
-    public String toStringHeap(){
-	String res = "";
-	//getLeft i*2
-	//getRight i*2+1
-	//getParent i/2
-	int count = heap[0];
-	while(count > 0){
-	    
-	}
-    }	    
-    
-    */
     
     public String name(){
 	return "pingping.zeng";
@@ -125,27 +111,27 @@ public class MyHeap{
 	
 	MyHeap h = new MyHeap(false);
 
-	h.add(1);
-	h.add(11);
-	h.add(3);
-	h.add(4);
-	h.add(10);
-	h.add(6);
-	h.add(7);
+	h.add(20);
+
 	h.add(8);
 	h.add(9);
+	h.add(10);
+	h.add(11);
+	h.add(12);
 
 	System.out.println(h);
 
 	
 
-	h.remove();
+	//h.remove();
 
 
-	System.out.println(h.remove());
+	//System.out.println(h.remove());
 
 
-	System.out.println(h);
+	//System.out.println(h);
+    
+
     }
 
 }
