@@ -20,23 +20,19 @@ public class HeapSort{
     }
     
    private static void heapSwap(int[]heap, int index, int end){
-	int min = -1;
-	if(index * 2 + 1 < end && (heap[index*2+1] < heap[index] ||
-					   heap[index*2+1] < heap[index])){
-	    if(heap[index*2] < heap[index*2+1]){
-		min = index * 2;
-	    }else{
-		min = index * 2 + 1;
-	    }
-	}else{
-	    min = index;
-	}
-	if(min != index){
-	    swap(heap, index, min);
-	    heapSwap(heap, min, end);
-	}
-	
-    }
+       int min = index;
+       if(index * 2 < end && (heap[index*2] > heap[index])){
+	   min = index * 2;
+       }
+       if(index * 2 + 1 < end && (heap[index*2+1] > heap[min])){
+	   min = index * 2 + 1;
+       }
+       if(min != index){
+	   swap(heap, index, min);
+	   heapSwap(heap, min, end);
+       }
+       
+   }
     
     
     private static void swap(int[] heap, int a, int b){
@@ -48,7 +44,7 @@ public class HeapSort{
 
     public static void main(String[]args){
 	
-	int[] array = {3,6,7,2,9,8,1};
+	int[] array = {3,6,7,2,9,8,1,5,0,4,-3,402};
 	sort(array);
 	System.out.println(Arrays.toString(array));
 
