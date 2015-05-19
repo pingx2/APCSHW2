@@ -34,11 +34,14 @@ public class HeapSort{
        
    }
     
-    
     private static void swap(int[] heap, int a, int b){
 	int temp = heap[a];
 	heap[a] = heap[b];
 	heap[b] = temp;
+    }
+    
+    public String name(){
+	return "pingping.zeng";
     }
     
 
