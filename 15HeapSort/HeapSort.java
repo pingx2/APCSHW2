@@ -11,11 +11,7 @@ public class HeapSort{
  
     public static void sort(int[] heap){
 	heapify(heap);
-	int value = heap[1];
-	heap[1] = heap[heap[0]];
-	heap[0] -= 1;
-	removeSwap(1);
-	return value;
+	removeSwap(heap,0);
     }
     
     private static void removeSwap(int[]heap, int index){
@@ -26,12 +22,12 @@ public class HeapSort{
 		swap(heap, index, index*2+1);
 		//heap[index] = heap[index*2+1];
 		//heap[index*2+1] = temp;
-		removeSwap(index*2+1);
+		removeSwap(heap, index*2+1);
 	    }else{
 		swap(heap, index, index*2);
 		//heap[index] = heap[index*2];
 		//heap[index*2] = temp;
-		removeSwap(index*2);
+		removeSwap(heap, index*2);
 	    }
 	}
     }
